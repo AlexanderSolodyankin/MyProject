@@ -15,9 +15,9 @@ public class UsersController {
     @Autowired
     private UsersServiceImpl usersService;
 
-    @GetMapping("user")
+    @GetMapping("/user")
     public String userMenu(Model model){
-        return "users";
+        return "/user/users";
     }
 
     @PostMapping("/user/newUser")
