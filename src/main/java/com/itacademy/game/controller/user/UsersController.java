@@ -19,10 +19,8 @@ public class UsersController {
         return usersService.getAllUsers();
     }
 
-
     @PostMapping
     public UserEntity newUser(@RequestBody UserEntity user){
-        System.out.println("Зашол");
         user= usersService.newUser(user);
         return user;
     }
