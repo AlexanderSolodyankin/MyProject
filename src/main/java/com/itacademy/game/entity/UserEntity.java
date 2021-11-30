@@ -26,4 +26,6 @@ public class UserEntity {
     public void prePersistCreateData(){
         this.createDate = LocalDateTime.now();
     }
+
+
 }
