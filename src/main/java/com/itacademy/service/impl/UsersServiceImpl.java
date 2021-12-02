@@ -1,7 +1,9 @@
 package com.itacademy.service.impl;
 
 import com.itacademy.entity.UserEntity;
+import com.itacademy.entity.UserRole;
 import com.itacademy.model.UserAuthModel;
+import com.itacademy.repository.RoleRepository;
 import com.itacademy.repository.UsersRepository;
 import com.itacademy.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +15,20 @@ import java.util.List;
 public class UsersServiceImpl implements UsersService {
     @Autowired
     private UsersRepository usersRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
     @Override
     public UserEntity newUser(UserEntity user) {
-            return usersRepository.save(user);
+
+        usersRepository.save(user); // тут должна пройти шифровка пароля
+
+        UserRole userRole = new UserRole();
+        userRole.setRoleName("ROLE_USER");
+        userRole.setUserEntity(user);
+        roleRepository.save(userRole);
+        return  user;
     }
 
     @Override

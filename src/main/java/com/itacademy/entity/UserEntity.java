@@ -20,6 +20,8 @@ public class UserEntity {
     private String login;
     @Column(nullable = true)
     private String password;
+    @Column(nullable = true)
+    private String email;
     private LocalDateTime createDate;
 
     @PrePersist
