@@ -36,4 +36,11 @@ public class UsersServiceImpl implements UsersService {
         }
         return userEntity;
     }
+
+    @Override
+    public UserEntity deleteUser(UserAuthModel userAuthModel) {
+        UserEntity userEntity = getAuthorizet(userAuthModel);
+        usersRepository.delete(userEntity);
+        return userEntity;
+    }
 }

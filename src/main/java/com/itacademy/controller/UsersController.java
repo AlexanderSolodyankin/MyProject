@@ -30,5 +30,10 @@ public class UsersController {
     public UserEntity getUser(@RequestBody UserAuthModel userAuthModel){
         return usersService.getAuthorizet(userAuthModel);
     }
+    @PostMapping("/deleteUser")
+    public UserEntity deleteUser(@RequestBody UserAuthModel userAuthModel){
+        return usersService.deleteUser(userAuthModel);
+    }
+
 
 }

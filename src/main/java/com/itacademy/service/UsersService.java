@@ -10,4 +10,5 @@ public interface UsersService {
     List<UserEntity> getAllUsers();
     UserEntity getByUserLogin(String login);
     UserEntity getAuthorizet(UserAuthModel userAuthModel);
+    UserEntity deleteUser(UserAuthModel userAuthModel);
 }
