@@ -1,4 +1,4 @@
-package com.itacademy.game.entity;
+package com.itacademy.entity;
 
 import lombok.*;
 

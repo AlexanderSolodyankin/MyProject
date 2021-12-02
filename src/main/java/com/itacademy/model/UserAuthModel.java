@@ -1,4 +1,4 @@
-package com.itacademy.game.model;
+package com.itacademy.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
