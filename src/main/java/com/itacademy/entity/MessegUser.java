@@ -1,35 +1,33 @@
 package com.itacademy.entity;
 
+
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
-@Table(name = "post_user")
+@Table(name = "messege")
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class PostUsers {
+public class MessegUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime createData;
-    private String name;
-    private String postValue;
+    private String text;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserEntity userEntity;
+    private UserEntity user;
+
+    private LocalDateTime createDate;
 
     @PrePersist
     public void prePersistCreateData(){
-        this.createData = LocalDateTime.now();
+        this.createDate = LocalDateTime.now();
     }
-
-
 }

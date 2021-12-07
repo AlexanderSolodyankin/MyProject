@@ -19,9 +19,9 @@ public class ExpertPersonEntity {
     private  String name;
     private String expertInfo;
 
-    @ManyToMany
-    @JoinColumn(name = "person_id")
-    private Person person;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
 
 
 }
