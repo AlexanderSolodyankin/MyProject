@@ -45,7 +45,7 @@ CREATE TABLE public.user_role (
 	CONSTRAINT fk79ltvrbu1ni2ad7w7i9vers1k FOREIGN KEY (user_id) REFERENCES public.user_entity(id)
 );
 
-CREATE TABLE public.person (
+CREATE TABLE public.userInfo (
 	id int8 NOT NULL,
 	car varchar(255) NULL,
 	city varchar(255) NULL,

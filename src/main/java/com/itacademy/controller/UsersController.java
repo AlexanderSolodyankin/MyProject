@@ -1,9 +1,8 @@
 package com.itacademy.controller;
 
-import com.itacademy.entity.Person;
 import com.itacademy.entity.UserEntity;
 import com.itacademy.model.UserAuthModel;
-import com.itacademy.service.PersonService;
+import com.itacademy.service.UserInfoService;
 import com.itacademy.service.impl.UsersServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +15,7 @@ public class UsersController {
     @Autowired
     private UsersServiceImpl usersService;
     @Autowired
-    private PersonService personService;
+    private UserInfoService userInfoService;
 
     @GetMapping("/getAll")
     public List<UserEntity> userMenu() {
@@ -24,29 +23,31 @@ public class UsersController {
     }
 
     @PostMapping("/registration")
-    public UserEntity newUser(@RequestBody Person person) {
-        // вошла информация персоны и производится регистрация и персоны
-        // и Юзера с проверкой на наличие Юзера
-        if(usersService.getByUserLogin(person.getUserEntity().getLogin()) != null){
-//            throw new IllegalAccessException("Такой логин уже существует");
-            System.err.println("Такой логин уже есть");
-            // тут могла быть ваша реклама
-        }
-        person = personService.save(person);
-        return person.getUserEntity();
+    public UserEntity newUser(@RequestBody UserEntity userEntity) throws IllegalAccessException {
+      if(usersService.getByUser(userEntity.getLogin()) != null){
+        throw  new IllegalAccessException("Такой пользователь уже есть");
+      }else return usersService.newUser(userEntity);
     }
 
 
     @PostMapping("/log-in")
     public UserEntity getUser(@RequestBody UserAuthModel userAuthModel) {
-        UserEntity userEntity = usersService.getAuthorizet(userAuthModel);
-        System.out.println();
-        return userEntity;
+        return usersService.getAuthorized(userAuthModel);
+
     }
 
-    @PostMapping("/deleteUser")
-    public UserEntity deleteUser(@RequestBody UserAuthModel userAuthModel) {
+    @PostMapping("/update")
+    public UserEntity setUpdateUser(@RequestBody UserAuthModel userAuthModel, @RequestParam String newPassword) {
+        return usersService.updatePassword(userAuthModel, newPassword);
+    }
+
+    @DeleteMapping("/deleteUser")
+    public UserEntity deleteUser(@RequestBody UserAuthModel userAuthModel) throws IllegalAccessException {
         return usersService.deleteUser(userAuthModel);
+    }
+    @PostMapping("/getUserById")
+    public UserEntity getById(@RequestBody Long id){
+        return usersService.getByUser(id);
     }
 
 

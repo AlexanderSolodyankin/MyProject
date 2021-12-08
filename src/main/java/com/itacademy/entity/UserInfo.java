@@ -11,23 +11,22 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "person")
+@Table(name = "user_info")
 @ToString
-public class Person {
+public class UserInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String serName;
     private String patronymic;
-//    private Date dataBerth;
     private String phone;
     private String country;
     private String city;
     private String car;
     private boolean gender;
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", unique = true)
     private UserEntity userEntity;
 
 }

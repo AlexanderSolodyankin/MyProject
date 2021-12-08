@@ -22,7 +22,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public UserEntity newUser(UserEntity user) {
 
-        usersRepository.save(user); // тут должна пройти шифровка пароля
+        user = usersRepository.save(user); // тут должна пройти шифровка пароля
 
         UserRole userRole = new UserRole();
         userRole.setRoleName("ROLE_USER");
@@ -37,13 +37,30 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public UserEntity getByUserLogin(String login) {
+    public UserEntity getByUser(String login) {
         return usersRepository.findByLogin(login).orElse(null);
     }
 
+
     @Override
-    public UserEntity getAuthorizet(UserAuthModel userAuthModel) {
-        UserEntity userEntity = getByUserLogin(userAuthModel.getLogin());
+    public UserEntity getByUser(Long id) {
+        return usersRepository.getById(id);
+    }
+
+    @Override
+    public UserEntity updatePassword(UserAuthModel userAuthModel, String newPassword) throws IllegalArgumentException {
+        UserEntity updateUser = getAuthorized(userAuthModel);
+        if(updateUser == null){
+            return null;
+        }
+        updateUser.setPassword(newPassword);
+        usersRepository.save(updateUser);
+        return updateUser;
+    }
+
+    @Override
+    public UserEntity getAuthorized(UserAuthModel userAuthModel) {
+        UserEntity userEntity = getByUser(userAuthModel.getLogin());
         if(!userEntity.getPassword().equals(userAuthModel.getPassword())){
             userEntity = null;
         }
@@ -51,8 +68,11 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public UserEntity deleteUser(UserAuthModel userAuthModel) {
-        UserEntity userEntity = getAuthorizet(userAuthModel);
+    public UserEntity deleteUser(UserAuthModel userAuthModel) throws IllegalAccessException {
+        UserEntity userEntity = getAuthorized(userAuthModel);
+        UserRole userRoleDelete = roleRepository.findByUserEntity(userEntity).orElse(null);
+        if(userRoleDelete == null) throw new IllegalAccessException("Такой роли не существует");
+        roleRepository.delete(userRoleDelete);
         usersRepository.delete(userEntity);
         return userEntity;
     }

@@ -8,7 +8,9 @@ import java.util.List;
 public interface UsersService {
     UserEntity newUser(UserEntity user);
     List<UserEntity> getAllUsers();
-    UserEntity getByUserLogin(String login);
-    UserEntity getAuthorizet(UserAuthModel userAuthModel);
-    UserEntity deleteUser(UserAuthModel userAuthModel);
+    UserEntity getByUser(String login);
+    UserEntity getAuthorized(UserAuthModel userAuthModel);
+    UserEntity deleteUser(UserAuthModel userAuthModel) throws IllegalAccessException;
+    UserEntity getByUser(Long id);
+    UserEntity updatePassword(UserAuthModel userAuthModel, String newPassword);
 }
