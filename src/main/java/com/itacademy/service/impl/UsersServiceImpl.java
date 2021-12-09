@@ -44,7 +44,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public UserEntity getByUser(Long id) {
-        return usersRepository.getById(id);
+        return usersRepository.findById(id).orElse(null);
     }
 
     @Override

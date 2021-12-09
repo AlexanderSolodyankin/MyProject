@@ -2,6 +2,7 @@ package com.itacademy.service.impl;
 
 import com.itacademy.entity.UserInfo;
 import com.itacademy.entity.UserEntity;
+import com.itacademy.model.UserAuthModel;
 import com.itacademy.repository.UserInfoRepository;
 import com.itacademy.service.UserInfoService;
 import com.itacademy.service.UsersService;
@@ -33,20 +34,22 @@ public class UserInfoServiceImpl implements UserInfoService {
         return userInfoRepository.save(userInfo);
     }
 
+
+
     @Override
-    public UserInfo delete(UserEntity userEntity) {
+    public UserInfo delete(UserAuthModel userEntity) {
         UserInfo userInfo = getUserInfo(userEntity);
         userInfoRepository.delete(userInfo);
         return userInfo;
     }
 
     @Override
-    public UserInfo getUserInfo(UserEntity userEntity) {
-        return userInfoRepository.findByUserEntity(userEntity).orElse(null);
+    public UserInfo getUserInfo(UserAuthModel userAuthModel) {
+        return userInfoRepository.findByUserEntity(usersService.getAuthorized(userAuthModel)).orElse(null);
 
     }
     @Override
     public UserInfo getUserInfo(Long id) {
-        return userInfoRepository.getById(id);
+        return userInfoRepository.findById(id).orElse(null);
     }
 }

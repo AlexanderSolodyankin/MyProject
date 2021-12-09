@@ -2,13 +2,14 @@ package com.itacademy.service;
 
 import com.itacademy.entity.ServiceCenterEntity;
 import com.itacademy.entity.UserEntity;
+import com.itacademy.model.UserAuthModel;
 
 import java.util.List;
 
-public interface ServiceServiceCenter {
+public interface ServiceCenterService {
     List<ServiceCenterEntity> getAllCerviceCenter();
     ServiceCenterEntity save(ServiceCenterEntity serviceCenterEntity);
-    ServiceCenterEntity delete(UserEntity userEntity);
-    ServiceCenterEntity getServiceCenter(UserEntity userEntity);
+    ServiceCenterEntity delete(UserAuthModel userAuthModel);
+    ServiceCenterEntity getServiceCenter(UserAuthModel userAuthModel);
     ServiceCenterEntity getServiceCenter(Long  id);
 }

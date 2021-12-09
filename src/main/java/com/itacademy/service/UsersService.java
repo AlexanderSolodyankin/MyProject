@@ -9,8 +9,8 @@ public interface UsersService {
     UserEntity newUser(UserEntity user);
     List<UserEntity> getAllUsers();
     UserEntity getByUser(String login);
+    UserEntity getByUser(Long id);
     UserEntity getAuthorized(UserAuthModel userAuthModel);
     UserEntity deleteUser(UserAuthModel userAuthModel) throws IllegalAccessException;
-    UserEntity getByUser(Long id);
     UserEntity updatePassword(UserAuthModel userAuthModel, String newPassword);
 }
