@@ -45,8 +45,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public UserInfo getUserInfo(UserAuthModel userAuthModel) {
-        return userInfoRepository.findByUserEntity(usersService.getAuthorized(userAuthModel)).orElse(null);
-
+//        return userInfoRepository.findByUserEntity(usersService.getAuthorizedToken(userAuthModel)).orElse(null);
+return null;
     }
     @Override
     public UserInfo getUserInfo(Long id) {

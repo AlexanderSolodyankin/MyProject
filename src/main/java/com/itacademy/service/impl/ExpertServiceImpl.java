@@ -30,9 +30,10 @@ public class ExpertServiceImpl implements ExpertService {
 
     @Override
     public ExpertEntity getExpert(UserAuthModel userAuthModel) {
-        return  expertRepository.findByUserEntity(
-                usersService.getAuthorized(userAuthModel)
-        ).orElse(null);
+//        return  expertRepository.findByUserEntity(
+//                usersService.getAuthorizedToken(userAuthModel)
+//        ).orElse(null);
+        return null;
 
     }
     @Override

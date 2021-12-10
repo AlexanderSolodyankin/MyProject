@@ -6,11 +6,13 @@ import com.itacademy.model.UserAuthModel;
 import java.util.List;
 
 public interface UsersService {
+    UserEntity setAdmin(UserEntity admin);
     UserEntity newUser(UserEntity user);
     List<UserEntity> getAllUsers();
     UserEntity getByUser(String login);
     UserEntity getByUser(Long id);
-    UserEntity getAuthorized(UserAuthModel userAuthModel);
+    String getAuthorizedToken(UserAuthModel userAuthModel) throws IllegalAccessException;
     UserEntity deleteUser(UserAuthModel userAuthModel) throws IllegalAccessException;
     UserEntity updatePassword(UserAuthModel userAuthModel, String newPassword);
+     UserEntity getCurrentUser();
 }

@@ -40,9 +40,10 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 
     @Override
     public ServiceCenterEntity getServiceCenter(UserAuthModel userAuthModel) {
-       ServiceCenterEntity serviceCenterEntity = serviceCenterReposit.findByUserEntity(
-               usersService.getAuthorized(userAuthModel)).orElse(null);
-        return serviceCenterEntity;
+//       ServiceCenterEntity serviceCenterEntity = serviceCenterReposit.findByUserEntity(
+//               usersService.getAuthorizedToken(userAuthModel)).orElse(null);
+//        return serviceCenterEntity;
+        return null;
     }
 
     @Override

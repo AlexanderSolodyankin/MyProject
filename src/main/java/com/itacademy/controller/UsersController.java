@@ -30,11 +30,11 @@ public class UsersController {
     }
 
 
-    @PostMapping("/log-in")
-    public UserEntity getUser(@RequestBody UserAuthModel userAuthModel) {
-        return usersService.getAuthorized(userAuthModel);
-
-    }
+//    @PostMapping("/log-in")
+//    public UserEntity getUser(@RequestBody UserAuthModel userAuthModel) {
+//        return usersService.getAuthorized(userAuthModel);
+//
+//    }
 
     @PostMapping("/update")
     public UserEntity setUpdateUser(@RequestBody UserAuthModel userAuthModel, @RequestParam String newPassword) {

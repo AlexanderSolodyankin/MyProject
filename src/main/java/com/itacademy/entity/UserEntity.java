@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Entity
 @Setter
 @Getter
+@Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -23,6 +24,7 @@ public class UserEntity {
     @Column(nullable = true)
     private String email;
     private LocalDateTime createDate;
+    private Long isActive;
 
     @PrePersist
     public void prePersistCreateData(){
