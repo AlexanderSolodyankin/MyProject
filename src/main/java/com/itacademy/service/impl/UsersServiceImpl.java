@@ -29,6 +29,7 @@ public class UsersServiceImpl implements UsersService {
         user.setPassword(encoderPassword);
 
         user = usersRepository.save(user); // тут должна пройти шифровка пароля
+        user.setIsActive(1L);
 
         UserRole userRole = new UserRole();
         userRole.setRoleName("ROLE_USER");
