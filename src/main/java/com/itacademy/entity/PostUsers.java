@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "post_user")
@@ -30,6 +29,4 @@ public class PostUsers {
     public void prePersistCreateData(){
         this.createData = LocalDateTime.now();
     }
-
-
 }

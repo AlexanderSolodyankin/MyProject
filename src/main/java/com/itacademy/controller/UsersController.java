@@ -43,8 +43,6 @@ public class UsersController {
         return usersService.getCurrentUser();
     }
 
-
-
     @PostMapping("/update")
     public UserEntity setUpdateUser(@RequestBody UserAuthModel userAuthModel, @RequestParam String newPassword) {
         return usersService.updatePassword(userAuthModel, newPassword);
@@ -52,8 +50,7 @@ public class UsersController {
 
     @DeleteMapping("/deleteUser")
     public UserEntity deleteUser(){
-        UserEntity userEntity = usersService.getCurrentUser();
-        return usersService.deleteUser(userEntity);
+        return usersService.deleteUser(usersService.getCurrentUser());
     }
 
 

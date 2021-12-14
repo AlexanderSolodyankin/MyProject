@@ -6,7 +6,6 @@ import com.itacademy.model.UserAuthModel;
 import com.itacademy.repository.RoleRepository;
 import com.itacademy.repository.UsersRepository;
 import com.itacademy.service.UsersService;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,9 +27,9 @@ public class UsersServiceImpl implements UsersService {
     public UserEntity newUser(UserEntity user) {
         String encoderPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encoderPassword);
-
-        user = usersRepository.save(user); // тут должна пройти шифровка пароля
         user.setIsActive(1L);
+        user = usersRepository.save(user);
+
 
         UserRole userRole = new UserRole();
         userRole.setRoleName("ROLE_USER");
@@ -60,24 +59,19 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public UserEntity getByUser(String login) {
-        return usersRepository.findByLogin(login).orElse(null);
+        return usersRepository.findByLogin(login).orElse(null );
     }
 
-//
-//    @Override
-//    public UserEntity getByUser(Long id) {
-//        return usersRepository.findById(id).orElse(null);
-//    }
 
     @Override
-    public UserEntity updatePassword(UserAuthModel userAuthModel, String newPassword) throws IllegalArgumentException {
-//        UserEntity updateUser = getAuthorizedToken(userAuthModel);
-//        if(updateUser == null){
-//            return null;
-//        }
-//        updateUser.setPassword(newPassword);
-//        usersRepository.save(updateUser);
-//        return updateUser;
+    public UserEntity getByUser(Long id) {
+        return usersRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException(" Пользователя под таким ID номером не существует! ")
+        );
+    }
+
+    @Override
+    public UserEntity updatePassword(UserAuthModel userAuthModel, String newPassword){
         return null;
     }
 
@@ -97,7 +91,9 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public UserEntity deleteUser(UserEntity userEntity)  {
-        UserRole userRoleDelete = roleRepository.findByUserEntity(userEntity).orElse(null);
+        UserRole userRoleDelete = roleRepository.findByUserEntity(userEntity).orElseThrow(
+                () -> new IllegalArgumentException(" Такого пользователя не существует! ")
+        );
         if(userRoleDelete == null) {
             try {
                 throw new IllegalAccessException("Такой роли не существует");

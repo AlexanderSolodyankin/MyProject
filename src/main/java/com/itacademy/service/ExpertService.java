@@ -1,14 +1,14 @@
 package com.itacademy.service;
 
 import com.itacademy.entity.ExpertEntity;
-import com.itacademy.model.UserAuthModel;
+import com.itacademy.entity.UserEntity;
 
 import java.util.List;
 
 public interface ExpertService {
     List<ExpertEntity> getAll();
     ExpertEntity saveExpert(ExpertEntity expertEntity);
-    ExpertEntity getExpert(UserAuthModel userAuthModel);
+    ExpertEntity getExpert(UserEntity userEntity);
     ExpertEntity getExpert(Long id);
-    ExpertEntity delete(UserAuthModel userAuthModel);
+    ExpertEntity delete(UserEntity userEntity);
 }

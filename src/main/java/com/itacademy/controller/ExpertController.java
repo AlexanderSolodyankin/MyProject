@@ -1,8 +1,8 @@
 package com.itacademy.controller;
 
 import com.itacademy.entity.ExpertEntity;
-import com.itacademy.model.UserAuthModel;
 import com.itacademy.service.ExpertService;
+import com.itacademy.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +13,8 @@ import java.util.List;
 public class ExpertController {
     @Autowired
     private ExpertService expertService;
+    @Autowired
+    private UsersService usersService;
 
     @GetMapping("/getAll")
     public List<ExpertEntity> getAll(){
@@ -24,9 +26,9 @@ public class ExpertController {
         return expertService.saveExpert(expertEntity);
     }
 
-    @PostMapping("/getExpert")
-    public ExpertEntity getExpert(@RequestBody UserAuthModel userAuthModel){
-        return expertService.getExpert(userAuthModel);
+    @GetMapping("/getExpert")
+    public ExpertEntity getExpert(){
+        return expertService.getExpert(usersService.getCurrentUser());
     }
     @GetMapping("/getExpert/{id}")
     public ExpertEntity getExpert(@PathVariable Long id){
@@ -34,7 +36,7 @@ public class ExpertController {
     }
 
     @DeleteMapping("/deleteExpert")
-    public ExpertEntity deleteExpert(@RequestBody UserAuthModel userAuthModel){
-        return expertService.delete(userAuthModel);
+    public ExpertEntity deleteExpert(){
+        return expertService.delete(usersService.getCurrentUser());
     }
 }

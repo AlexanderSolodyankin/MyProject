@@ -1,7 +1,7 @@
 package com.itacademy.service.impl;
 
 import com.itacademy.entity.ServiceCenterEntity;
-import com.itacademy.model.UserAuthModel;
+import com.itacademy.entity.UserEntity;
 import com.itacademy.repository.ServiceCenterReposit;
 import com.itacademy.service.ServiceCenterService;
 import com.itacademy.service.UsersService;
@@ -26,28 +26,30 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 
     @Override
     public ServiceCenterEntity save(ServiceCenterEntity serviceCenterEntity) {
-        serviceCenterEntity.setUserEntity(usersService.getByUser(serviceCenterEntity.getUserEntity().getLogin()));
+        serviceCenterEntity.setUserEntity(usersService.getCurrentUser());
         return serviceCenterReposit.save(serviceCenterEntity);
     }
 
     @Override
-    public ServiceCenterEntity delete(UserAuthModel userAuthModel) {
-       ServiceCenterEntity serviceCenterEntity =  getServiceCenter(userAuthModel);
+    public ServiceCenterEntity delete(UserEntity userEntity) {
+       ServiceCenterEntity serviceCenterEntity =  getServiceCenter(userEntity);
        serviceCenterReposit.delete(serviceCenterEntity);
        return serviceCenterEntity;
 
     }
 
     @Override
-    public ServiceCenterEntity getServiceCenter(UserAuthModel userAuthModel) {
-//       ServiceCenterEntity serviceCenterEntity = serviceCenterReposit.findByUserEntity(
-//               usersService.getAuthorizedToken(userAuthModel)).orElse(null);
-//        return serviceCenterEntity;
-        return null;
+    public ServiceCenterEntity getServiceCenter(UserEntity userEntity) {
+        return serviceCenterReposit.findByUserEntity(userEntity).orElseThrow(
+                () -> new IllegalArgumentException(" Сервис-Центра закрепленного по данному пользователю отсутствует! ")
+        );
+
     }
 
     @Override
     public ServiceCenterEntity getServiceCenter(Long id) {
-        return serviceCenterReposit.findById(id).orElse(null);
+        return serviceCenterReposit.findById(id).orElseThrow(
+                () -> new IllegalArgumentException(" Сервис-Центра под таким ID номером не существует! ")
+                );
     }
 }

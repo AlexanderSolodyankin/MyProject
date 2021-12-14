@@ -22,6 +22,4 @@ public class ExpertEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
-
-
 }

@@ -2,7 +2,6 @@ package com.itacademy.service.impl;
 
 import com.itacademy.entity.UserInfo;
 import com.itacademy.entity.UserEntity;
-import com.itacademy.model.UserAuthModel;
 import com.itacademy.repository.UserInfoRepository;
 import com.itacademy.service.UserInfoService;
 import com.itacademy.service.UsersService;
@@ -29,7 +28,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         UserEntity userSaveInfo = usersService.getByUser(userInfo.getUserEntity().getLogin());
         userInfo.setUserEntity(userSaveInfo);
         if(userSaveInfo == null) throw new IllegalAccessException(
-                "Нельзя сохранить информацию о пользователе если не существует Юзера");
+                "Нельзя сохранить информацию о пользователе если не существует самого пользователя");
 
         return userInfoRepository.save(userInfo);
     }
@@ -37,19 +36,23 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 
     @Override
-    public UserInfo delete(UserAuthModel userEntity) {
+    public UserInfo delete(UserEntity userEntity) {
         UserInfo userInfo = getUserInfo(userEntity);
         userInfoRepository.delete(userInfo);
         return userInfo;
     }
 
     @Override
-    public UserInfo getUserInfo(UserAuthModel userAuthModel) {
-//        return userInfoRepository.findByUserEntity(usersService.getAuthorizedToken(userAuthModel)).orElse(null);
-return null;
+    public UserInfo getUserInfo(UserEntity userEntity) {
+        System.out.println("Получил пользователя для вывода инфы о пользователе "+userEntity);
+        return userInfoRepository.findByUserEntity(userEntity).orElseThrow(
+                () -> new IllegalArgumentException("Информации по Пользователю отсутствует")
+        );
     }
     @Override
     public UserInfo getUserInfo(Long id) {
-        return userInfoRepository.findById(id).orElse(null);
+        return userInfoRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("Информации по данному ID номеру отсутствует")
+        );
     }
 }
