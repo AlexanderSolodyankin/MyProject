@@ -28,8 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/users/**").permitAll()
-                .antMatchers(HttpMethod.GET,"/users/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST,"/users").permitAll()
+                .antMatchers(HttpMethod.GET,"/users").hasRole("ADMIN")
                 .antMatchers("/users/get-current").authenticated()
                 .anyRequest().permitAll()
                 .and()
@@ -42,8 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .dataSource(dataSource)
                 .usersByUsernameQuery("select login, password, is_active from users where login=?")
                 .authoritiesByUsernameQuery
-                        ("select u.login, ur.role_name as role from user_role ur inner join users u on ur.user_id = " +
-                                "u.id where u.login=? and u.is_active=1");
+    ("select u.login, ur.role_name as role from user_role ur inner join users u on ur.user_id = u.id where u.login = ? and u.is_active = 1");
     }
 
     @Bean

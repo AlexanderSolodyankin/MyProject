@@ -19,11 +19,13 @@ public class ApplicationStartRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
         if(usersService.getByUser("admin") == null){
             UserEntity admin = new UserEntity();
             admin.setLogin("admin");
             admin.setPassword("admin");
             admin.setIsActive(1L);
+            admin.setEmail("Admin.Mail.Ru");
             usersService.setAdmin(admin);
         }
     }

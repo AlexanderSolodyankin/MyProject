@@ -6,6 +6,7 @@ import com.itacademy.model.UserAuthModel;
 import com.itacademy.repository.RoleRepository;
 import com.itacademy.repository.UsersRepository;
 import com.itacademy.service.UsersService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -80,11 +81,12 @@ public class UsersServiceImpl implements UsersService {
         return null;
     }
 
+    @SneakyThrows
     @Override
-    public String getAuthorizedToken(UserAuthModel userAuthModel) throws IllegalAccessException {
+    public String getAuthorizedToken(UserAuthModel userAuthModel) {
         UserEntity userEntity = usersRepository.findByLogin(userAuthModel.getLogin()).orElseThrow(
-                () -> new IllegalArgumentException("Неверный логин или пароль.")
-        );
+                () -> new IllegalArgumentException("Неверный логин или пароль."));
+
         boolean isPasswordMatches = passwordEncoder.matches(userAuthModel.getPassword(), userEntity.getPassword());
         if(!isPasswordMatches){
             throw new IllegalAccessException("Неверный логин или пароль.");
