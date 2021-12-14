@@ -81,9 +81,9 @@ public class UsersServiceImpl implements UsersService {
         return null;
     }
 
-    @SneakyThrows
+
     @Override
-    public String getAuthorizedToken(UserAuthModel userAuthModel) {
+    public String getAuthorizedToken(UserAuthModel userAuthModel) throws IllegalAccessException {
         UserEntity userEntity = usersRepository.findByLogin(userAuthModel.getLogin()).orElseThrow(
                 () -> new IllegalArgumentException("Неверный логин или пароль."));
 
@@ -96,14 +96,19 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public UserEntity deleteUser(UserAuthModel userAuthModel) throws IllegalAccessException {
-//        UserEntity userEntity = getAuthorizedToken(userAuthModel);
-//        UserRole userRoleDelete = roleRepository.findByUserEntity(userEntity).orElse(null);
-//        if(userRoleDelete == null) throw new IllegalAccessException("Такой роли не существует");
-//        roleRepository.delete(userRoleDelete);
-//        usersRepository.delete(userEntity);
-//        return userEntity;
-        return null;
+    public UserEntity deleteUser(UserEntity userEntity)  {
+        UserRole userRoleDelete = roleRepository.findByUserEntity(userEntity).orElse(null);
+        if(userRoleDelete == null) {
+            try {
+                throw new IllegalAccessException("Такой роли не существует");
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        roleRepository.delete(userRoleDelete);
+        usersRepository.delete(userEntity);
+        return userEntity;
+
     }
 
     @Override

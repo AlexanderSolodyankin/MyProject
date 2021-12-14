@@ -34,13 +34,12 @@ public class UsersController {
     }
 
     @PostMapping("/sing-in")
-    public ResponseEntity<String> sing(@RequestBody UserAuthModel userAuthModel){
+    public ResponseEntity<String> sing(@RequestBody UserAuthModel userAuthModel) throws IllegalAccessException {
         return ResponseEntity.ok(usersService.getAuthorizedToken(userAuthModel));
     }
 
     @GetMapping("/get-current")
     public UserEntity getCurrent(){
-        System.out.println("Зашол в контроллер ГетКАРЕНТ");
         return usersService.getCurrentUser();
     }
 
@@ -52,8 +51,9 @@ public class UsersController {
     }
 
     @DeleteMapping("/deleteUser")
-    public UserEntity deleteUser(@RequestBody UserAuthModel userAuthModel) throws IllegalAccessException {
-        return usersService.deleteUser(userAuthModel);
+    public UserEntity deleteUser(){
+        UserEntity userEntity = usersService.getCurrentUser();
+        return usersService.deleteUser(userEntity);
     }
 
 

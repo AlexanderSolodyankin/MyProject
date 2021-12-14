@@ -12,7 +12,7 @@ public interface UsersService {
     UserEntity getByUser(String login);
 //    UserEntity getByUser(Long id);
     String getAuthorizedToken(UserAuthModel userAuthModel) throws IllegalAccessException;
-    UserEntity deleteUser(UserAuthModel userAuthModel) throws IllegalAccessException;
+    UserEntity deleteUser(UserEntity userEntity);
     UserEntity updatePassword(UserAuthModel userAuthModel, String newPassword);
      UserEntity getCurrentUser();
 }
