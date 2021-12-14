@@ -45,10 +45,10 @@ public class UsersController {
     public UserEntity deleteUser(@RequestBody UserAuthModel userAuthModel) throws IllegalAccessException {
         return usersService.deleteUser(userAuthModel);
     }
-    @PostMapping("/getUserById/{id}")
-    public UserEntity getById(@PathVariable Long id){
-        return usersService.getByUser(id);
-    }
+//    @PostMapping("/getUserById/{id}")
+//    public UserEntity getById(@PathVariable Long id){
+//        return usersService.getByUser(id);
+//    }
 
 
 }

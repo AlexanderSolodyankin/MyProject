@@ -62,11 +62,11 @@ public class UsersServiceImpl implements UsersService {
         return usersRepository.findByLogin(login).orElse(null);
     }
 
-
-    @Override
-    public UserEntity getByUser(Long id) {
-        return usersRepository.findById(id).orElse(null);
-    }
+//
+//    @Override
+//    public UserEntity getByUser(Long id) {
+//        return usersRepository.findById(id).orElse(null);
+//    }
 
     @Override
     public UserEntity updatePassword(UserAuthModel userAuthModel, String newPassword) throws IllegalArgumentException {
