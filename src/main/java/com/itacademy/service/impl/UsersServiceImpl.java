@@ -85,7 +85,7 @@ public class UsersServiceImpl implements UsersService {
         if(!isPasswordMatches){
             throw new IllegalAccessException("Неверный логин или пароль.");
         }
-        String userNamePasswordPair = userAuthModel.getLogin() + ": " + userAuthModel.getPassword();
+        String userNamePasswordPair = userAuthModel.getLogin() + ":" + userAuthModel.getPassword();
         return "Basic " + new String(Base64.getEncoder().encode(userNamePasswordPair.getBytes()));
     }
 

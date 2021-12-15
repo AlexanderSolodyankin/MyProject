@@ -20,6 +20,8 @@ public class MessegUser {
 
     private String text;
 
+
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
