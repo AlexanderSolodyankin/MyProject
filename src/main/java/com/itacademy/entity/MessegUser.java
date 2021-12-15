@@ -1,35 +1,33 @@
 package com.itacademy.entity;
 
+
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "messege")
 @Setter
 @Getter
-@Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @ToString
-public class UserEntity {
+public class MessegUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true, nullable = true)
-    private String login;
-    @Column(nullable = true)
-    private String password;
-    @Column(nullable = true)
-    private String email;
+
+    private String text;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+
     private LocalDateTime createDate;
-    private Long isActive;
 
     @PrePersist
     public void prePersistCreateData(){
         this.createDate = LocalDateTime.now();
     }
-
-
 }
