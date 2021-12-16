@@ -24,6 +24,7 @@ public class ExpertServiceImpl implements ExpertService {
 
     @Override
     public ExpertEntity saveExpert(ExpertEntity expertEntity) {
+        System.out.println("перед токеном " +expertEntity);
         expertEntity.setUserEntity(usersService.getCurrentUser());
         return expertRepository.save(expertEntity);
     }
