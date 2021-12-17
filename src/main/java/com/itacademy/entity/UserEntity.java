@@ -25,6 +25,7 @@ public class UserEntity {
     private String email;
     private LocalDateTime createDate;
     private Long isActive;
+    private String activationCode;
 
     @PrePersist
     public void prePersistCreateData(){

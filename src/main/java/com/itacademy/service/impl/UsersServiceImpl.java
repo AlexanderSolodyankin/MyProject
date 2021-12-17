@@ -3,6 +3,7 @@ package com.itacademy.service.impl;
 import com.itacademy.entity.UserEntity;
 import com.itacademy.entity.UserRole;
 import com.itacademy.model.UserAuthModel;
+import com.itacademy.model.UserUpdateModelPassword;
 import com.itacademy.repository.RoleRepository;
 import com.itacademy.repository.UsersRepository;
 import com.itacademy.service.UsersService;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -23,13 +25,25 @@ public class UsersServiceImpl implements UsersService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
     @Override
     public UserEntity newUser(UserEntity user) {
+        UserEntity userDb = usersRepository.findByLogin(user.getLogin()).orElse(null);
+        if(userDb != null || user.getId() != null ){
+            throw  new IllegalArgumentException("Такой пользователь существует!!");
+        }
         String encoderPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encoderPassword);
         user.setIsActive(1L);
+        user.setActivationCode(UUID.randomUUID().toString());
         user = usersRepository.save(user);
-
+        if(!user.getEmail().isEmpty()){
+            String message = String.format(
+                    "Здраствуйте %s вы пытаетесь зарегестрироватся на нашем сайте\n" +
+                            "http//localhost:8080/activate/%s"
+                    , user.getLogin(), user.getActivationCode()
+            );
+        }
 
         UserRole userRole = new UserRole();
         userRole.setRoleName("ROLE_USER");
@@ -71,8 +85,15 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public UserEntity updatePassword(UserAuthModel userAuthModel, String newPassword){
-        return null;
+    public UserEntity updatePassword(UserUpdateModelPassword userNewPassword) throws IllegalAccessException {
+        UserEntity user = getCurrentUser();
+        boolean isPasswordMatches = passwordEncoder.matches(userNewPassword.getOldPassword(), user.getPassword());
+        if(!isPasswordMatches){
+            throw new IllegalAccessException("Неверный пароль.");
+        }
+        String newPassword = passwordEncoder.encode(userNewPassword.getNewPassword());
+        user.setPassword(newPassword);
+        return usersRepository.save(user);
     }
 
 

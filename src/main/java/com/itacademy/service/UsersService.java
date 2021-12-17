@@ -2,6 +2,7 @@ package com.itacademy.service;
 
 import com.itacademy.entity.UserEntity;
 import com.itacademy.model.UserAuthModel;
+import com.itacademy.model.UserUpdateModelPassword;
 
 import java.util.List;
 
@@ -13,6 +14,6 @@ public interface UsersService {
     UserEntity getByUser(Long id);
     String getAuthorizedToken(UserAuthModel userAuthModel) throws IllegalAccessException;
     UserEntity deleteUser(UserEntity userEntity);
-    UserEntity updatePassword(UserAuthModel userAuthModel, String newPassword);
+    UserEntity updatePassword(UserUpdateModelPassword userNewPassword) throws IllegalAccessException;
      UserEntity getCurrentUser();
 }

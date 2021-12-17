@@ -2,6 +2,7 @@ package com.itacademy.controller;
 
 import com.itacademy.entity.UserEntity;
 import com.itacademy.model.UserAuthModel;
+import com.itacademy.model.UserUpdateModelPassword;
 import com.itacademy.service.UserInfoService;
 import com.itacademy.service.impl.UsersServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,7 @@ public class UsersController {
     }
 
     @PostMapping("/registration")
-    public UserEntity newUser(@RequestBody UserEntity userEntity) throws IllegalAccessException {
-      if(usersService.getByUser(userEntity.getLogin()) != null){
-        throw  new IllegalAccessException("Такой пользователь уже есть");
-      }else
+    public UserEntity newUser(@RequestBody UserEntity userEntity) {
           return usersService.newUser(userEntity);
     }
 
@@ -44,8 +42,8 @@ public class UsersController {
     }
 
     @PostMapping("/update")
-    public UserEntity setUpdateUser(@RequestBody UserAuthModel userAuthModel, @RequestParam String newPassword) {
-        return usersService.updatePassword(userAuthModel, newPassword);
+    public UserEntity setUpdateUser(@RequestBody UserUpdateModelPassword userNewPassword) throws IllegalAccessException {
+        return usersService.updatePassword(userNewPassword);
     }
 
     @DeleteMapping("/deleteUser")
