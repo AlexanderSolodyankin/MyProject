@@ -12,3 +12,10 @@ public class SpaceApplication {
 
 	}
 }
+// driverroom.test@gmail.com = login
+// driverr00m@test= password
+
+// smtptestrestapi= первая настройка для приложения
+// pkxuibqrkkvkhenz=пароль для приложения
+
+// https://support.google.com/a/answer/176600?hl=en
