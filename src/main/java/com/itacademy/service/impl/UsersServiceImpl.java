@@ -6,12 +6,14 @@ import com.itacademy.model.UserAuthModel;
 import com.itacademy.model.UserUpdateModelPassword;
 import com.itacademy.repository.RoleRepository;
 import com.itacademy.repository.UsersRepository;
+import com.itacademy.service.MailService;
 import com.itacademy.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
@@ -24,6 +26,8 @@ public class UsersServiceImpl implements UsersService {
     private RoleRepository roleRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private MailService mailService;
 
 
     @Override
@@ -32,23 +36,23 @@ public class UsersServiceImpl implements UsersService {
         if(userDb != null || user.getId() != null ){
             throw  new IllegalArgumentException("Такой пользователь существует!!");
         }
+        String activationCode = user.getLogin() + ":" + user.getPassword();
+        activationCode = new String(Base64.getEncoder().encode(activationCode.getBytes()));
+
         String encoderPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encoderPassword);
-        user.setIsActive(1L);
-        user.setActivationCode(UUID.randomUUID().toString());
+        user.setIsActive(0L);
+
+        user.setActivationCode(activationCode);
         user = usersRepository.save(user);
-        if(!user.getEmail().isEmpty()){
-            String message = String.format(
-                    "Здраствуйте %s вы пытаетесь зарегестрироватся на нашем сайте\n" +
-                            "http//localhost:8080/activate/%s"
-                    , user.getLogin(), user.getActivationCode()
-            );
-        }
+
 
         UserRole userRole = new UserRole();
         userRole.setRoleName("ROLE_USER");
         userRole.setUserEntity(user);
         roleRepository.save(userRole);
+        String messege = "http://localhost:8080/users/activation/" + activationCode;
+        mailService.send(user.getEmail(), user.getLogin(),messege);
         return  user;
     }
 
@@ -132,5 +136,18 @@ public class UsersServiceImpl implements UsersService {
     public UserEntity getCurrentUser() {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         return getByUser(userName);
+    }
+
+    @Override
+    public UserEntity activationUser(String activation) {
+        UserEntity userEntity = usersRepository.findByActivationCode(activation).orElseThrow(
+                () -> new IllegalArgumentException("Проблемы с активацией акаунта"));
+
+        if(userEntity.getActivationCode().equals(activation)){
+            userEntity.setIsActive(1L);
+            userEntity.setActivationCode(null);
+        }
+        usersRepository.save(userEntity);
+        return userEntity;
     }
 }

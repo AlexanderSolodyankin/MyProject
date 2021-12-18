@@ -20,7 +20,6 @@ public class UsersController {
     private UserInfoService userInfoService;
 
 
-
     @GetMapping("/getAll")
     public List<UserEntity> userMenu() {
         return usersService.getAllUsers();
@@ -28,7 +27,7 @@ public class UsersController {
 
     @PostMapping("/registration")
     public UserEntity newUser(@RequestBody UserEntity userEntity) {
-          return usersService.newUser(userEntity);
+        return usersService.newUser(userEntity);
     }
 
     @PostMapping("/sing-in")
@@ -37,7 +36,7 @@ public class UsersController {
     }
 
     @GetMapping("/get-current")
-    public UserEntity getCurrent(){
+    public UserEntity getCurrent() {
         return usersService.getCurrentUser();
     }
 
@@ -47,12 +46,14 @@ public class UsersController {
     }
 
     @DeleteMapping("/deleteUser")
-    public UserEntity deleteUser(){
+    public UserEntity deleteUser() {
         return usersService.deleteUser(usersService.getCurrentUser());
     }
 
-
-
+    @GetMapping("/activation/{code}")
+    public UserEntity acivationUser(@PathVariable String code) {
+        return usersService.activationUser(code);
+    }
 
 
 }

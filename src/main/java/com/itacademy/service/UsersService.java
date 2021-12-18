@@ -15,5 +15,6 @@ public interface UsersService {
     String getAuthorizedToken(UserAuthModel userAuthModel) throws IllegalAccessException;
     UserEntity deleteUser(UserEntity userEntity);
     UserEntity updatePassword(UserUpdateModelPassword userNewPassword) throws IllegalAccessException;
-     UserEntity getCurrentUser();
+    UserEntity getCurrentUser();
+    UserEntity activationUser(String activation);
 }

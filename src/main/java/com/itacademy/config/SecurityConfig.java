@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST,"/users/update").fullyAuthenticated()
                 .antMatchers(HttpMethod.DELETE,"/users/deleteUser").fullyAuthenticated()
                 .antMatchers(HttpMethod.GET,"/users/get-current").fullyAuthenticated()
+                .antMatchers(HttpMethod.GET,"/users/activation/*").permitAll()
                 .antMatchers(HttpMethod.GET,"/users/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET,"/users/get-current").authenticated()
                 .antMatchers(HttpMethod.GET, "/userInfo/**").fullyAuthenticated()

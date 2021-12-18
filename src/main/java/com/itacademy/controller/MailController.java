@@ -1,5 +1,7 @@
-package com.itacademy.mail;
+package com.itacademy.controller;
 
+import com.itacademy.model.MailModel;
+import com.itacademy.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

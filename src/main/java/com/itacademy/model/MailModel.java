@@ -1,4 +1,4 @@
-package com.itacademy.mail;
+package com.itacademy.model;
 
 import lombok.*;
 

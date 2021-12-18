@@ -44,7 +44,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public UserInfo getUserInfo(UserEntity userEntity) {
-        System.out.println("Получил пользователя для вывода инфы о пользователе "+userEntity);
         return userInfoRepository.findByUserEntity(userEntity).orElseThrow(
                 () -> new IllegalArgumentException("Информации по Пользователю отсутствует")
         );
