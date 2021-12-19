@@ -51,7 +51,7 @@ public class UsersServiceImpl implements UsersService {
         userRole.setRoleName("ROLE_USER");
         userRole.setUserEntity(user);
         roleRepository.save(userRole);
-        String messege = "http://localhost:8080/users/activation/" + activationCode;
+        String messege = "https://driverroom.herokuapp.com/users/activation/" + activationCode;
         mailService.send(user.getEmail(), user.getLogin(),messege);
         return  user;
     }
