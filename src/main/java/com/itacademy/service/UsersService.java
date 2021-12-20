@@ -1,8 +1,9 @@
 package com.itacademy.service;
 
 import com.itacademy.entity.UserEntity;
-import com.itacademy.model.UserAuthModel;
-import com.itacademy.model.UserUpdateModelPassword;
+import com.itacademy.model.usersModels.UserAuthModel;
+import com.itacademy.model.usersModels.UserModel;
+import com.itacademy.model.usersModels.UserUpdateModelPassword;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface UsersService {
     UserEntity updatePassword(UserUpdateModelPassword userNewPassword) throws IllegalAccessException;
     UserEntity getCurrentUser();
     UserEntity activationUser(String activation);
+    UserModel convertUserEntityToUserModel(UserEntity userEntity);
+    List<UserModel> convertUserEntityToUserModel(List<UserEntity> userEntity);
 }

@@ -1,4 +1,4 @@
-package com.itacademy.model;
+package com.itacademy.model.usersModels;
 
 import lombok.*;
 

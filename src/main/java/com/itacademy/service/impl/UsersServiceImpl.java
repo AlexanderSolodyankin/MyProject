@@ -2,8 +2,9 @@ package com.itacademy.service.impl;
 
 import com.itacademy.entity.UserEntity;
 import com.itacademy.entity.UserRole;
-import com.itacademy.model.UserAuthModel;
-import com.itacademy.model.UserUpdateModelPassword;
+import com.itacademy.model.usersModels.UserAuthModel;
+import com.itacademy.model.usersModels.UserModel;
+import com.itacademy.model.usersModels.UserUpdateModelPassword;
 import com.itacademy.repository.RoleRepository;
 import com.itacademy.repository.UsersRepository;
 import com.itacademy.service.MailService;
@@ -13,10 +14,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -149,5 +149,23 @@ public class UsersServiceImpl implements UsersService {
         }
         usersRepository.save(userEntity);
         return userEntity;
+    }
+
+    @Override
+    public UserModel convertUserEntityToUserModel(UserEntity userEntity) {
+        UserModel userModel = new UserModel();
+        userModel.setId(userEntity.getId());
+        userModel.setLogin(userEntity.getLogin());
+        userModel.setEmail(userEntity.getEmail());
+        return userModel;
+    }
+
+    @Override
+    public List<UserModel> convertUserEntityToUserModel(List<UserEntity> userEntity) {
+        List<UserModel> userModelList = new ArrayList<>();
+        for(UserEntity userEnty: userEntity){
+            userModelList.add(convertUserEntityToUserModel(userEnty));
+        }
+        return userModelList;
     }
 }
