@@ -8,7 +8,7 @@ import com.itacademy.model.usersModels.UserUpdateModelPassword;
 import java.util.List;
 
 public interface UsersService {
-    UserEntity setAdmin(UserEntity admin);
+
     UserEntity newUser(UserEntity user);
     List<UserEntity> getAllUsers();
     UserEntity getByUser(String login);

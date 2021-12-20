@@ -33,8 +33,8 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public UserEntity newUser(UserEntity user) {
         UserEntity userDb = usersRepository.findByLogin(user.getLogin()).orElse(null);
-        if(userDb != null || user.getId() != null ){
-            throw  new IllegalArgumentException("Такой пользователь существует!!");
+        if (userDb != null || user.getId() != null) {
+            throw new IllegalArgumentException("Такой пользователь существует!!");
         }
         String activationCode = user.getLogin() + ":" + user.getPassword();
         activationCode = new String(Base64.getEncoder().encode(activationCode.getBytes()));
@@ -52,22 +52,8 @@ public class UsersServiceImpl implements UsersService {
         userRole.setUserEntity(user);
         roleRepository.save(userRole);
         String messege = "https://driverroom.herokuapp.com/users/activation/" + activationCode;
-        mailService.send(user.getEmail(), user.getLogin(),messege);
-        return  user;
-    }
-
-    @Override
-    public UserEntity setAdmin(UserEntity user) {
-        String encoderPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encoderPassword);
-
-        user = usersRepository.save(user);
-
-        UserRole userRole = new UserRole();
-        userRole.setRoleName("ROLE_ADMIN");
-        userRole.setUserEntity(user);
-        roleRepository.save(userRole);
-        return  user;
+        mailService.send(user.getEmail(), user.getLogin(), messege);
+        return user;
     }
 
     @Override
@@ -77,7 +63,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public UserEntity getByUser(String login) {
-        return usersRepository.findByLogin(login).orElse(null );
+        return usersRepository.findByLogin(login).orElse(null);
     }
 
 
@@ -92,7 +78,7 @@ public class UsersServiceImpl implements UsersService {
     public UserEntity updatePassword(UserUpdateModelPassword userNewPassword) throws IllegalAccessException {
         UserEntity user = getCurrentUser();
         boolean isPasswordMatches = passwordEncoder.matches(userNewPassword.getOldPassword(), user.getPassword());
-        if(!isPasswordMatches){
+        if (!isPasswordMatches) {
             throw new IllegalAccessException("Неверный пароль.");
         }
         String newPassword = passwordEncoder.encode(userNewPassword.getNewPassword());
@@ -107,7 +93,7 @@ public class UsersServiceImpl implements UsersService {
                 () -> new IllegalArgumentException("Неверный логин или пароль."));
 
         boolean isPasswordMatches = passwordEncoder.matches(userAuthModel.getPassword(), userEntity.getPassword());
-        if(!isPasswordMatches){
+        if (!isPasswordMatches) {
             throw new IllegalAccessException("Неверный логин или пароль.");
         }
         String userNamePasswordPair = userAuthModel.getLogin() + ":" + userAuthModel.getPassword();
@@ -115,11 +101,11 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public UserEntity deleteUser(UserEntity userEntity)  {
+    public UserEntity deleteUser(UserEntity userEntity) {
         UserRole userRoleDelete = roleRepository.findByUserEntity(userEntity).orElseThrow(
                 () -> new IllegalArgumentException(" Такого пользователя не существует! ")
         );
-        if(userRoleDelete == null) {
+        if (userRoleDelete == null) {
             try {
                 throw new IllegalAccessException("Такой роли не существует");
             } catch (IllegalAccessException e) {
@@ -143,7 +129,7 @@ public class UsersServiceImpl implements UsersService {
         UserEntity userEntity = usersRepository.findByActivationCode(activation).orElseThrow(
                 () -> new IllegalArgumentException("Проблемы с активацией акаунта"));
 
-        if(userEntity.getActivationCode().equals(activation)){
+        if (userEntity.getActivationCode().equals(activation)) {
             userEntity.setIsActive(1L);
             userEntity.setActivationCode(null);
         }
@@ -163,7 +149,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public List<UserModel> convertUserEntityToUserModel(List<UserEntity> userEntity) {
         List<UserModel> userModelList = new ArrayList<>();
-        for(UserEntity userEnty: userEntity){
+        for (UserEntity userEnty : userEntity) {
             userModelList.add(convertUserEntityToUserModel(userEnty));
         }
         return userModelList;
