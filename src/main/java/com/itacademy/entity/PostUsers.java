@@ -25,6 +25,8 @@ public class PostUsers {
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
 
+
+
     @PrePersist
     public void prePersistCreateData(){
         this.createData = LocalDateTime.now();

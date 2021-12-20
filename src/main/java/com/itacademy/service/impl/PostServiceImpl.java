@@ -2,7 +2,6 @@ package com.itacademy.service.impl;
 
 import com.itacademy.entity.PostUsers;
 import com.itacademy.repository.PostRepository;
-import com.itacademy.repository.UsersRepository;
 import com.itacademy.service.PostService;
 import com.itacademy.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
