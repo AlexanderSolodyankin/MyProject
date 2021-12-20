@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "7d24f37d-d871-4b97-9c27-0e01d947cfcc",
-		"name": "Driver Room local",
+		"_postman_id": "8cb94eab-9865-4470-8383-21c22804db17",
+		"name": "Driver Room remote",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -14,12 +14,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/getAll",
-							"protocol": "http",
+							"raw": "https://driverroom.herokuapp.com/users/getAll",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"driverroom",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"users",
 								"getAll"
@@ -43,12 +44,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/registration",
-							"protocol": "http",
+							"raw": "https://driverroom.herokuapp.com/users/registration",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"driverroom",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"users",
 								"registration"
@@ -72,12 +74,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/sing-in",
-							"protocol": "http",
+							"raw": "https://driverroom.herokuapp.com/users/sing-in",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"driverroom",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"users",
 								"sing-in"
@@ -92,12 +95,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/get-current",
-							"protocol": "http",
+							"raw": "https://driverroom.herokuapp.com/users/get-current",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"driverroom",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"users",
 								"get-current"
@@ -121,11 +125,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/users/update",
+							"raw": "https://driverroom.herokuapp.com/users/update",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"driverroom",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"users",
 								"update"
@@ -140,11 +146,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/users/deleteUser",
+							"raw": "https://driverroom.herokuapp.com/users/deleteUser",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"driverroom",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"users",
 								"deleteUser"
@@ -154,12 +162,23 @@
 					"response": []
 				},
 				{
-					"name": "Activation",
+					"name": "Activation code",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "https://driverroom.herokuapp.com/users/activation/{code}",
+							"protocol": "https",
+							"host": [
+								"driverroom",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"activation",
+								"{code}"
+							]
 						}
 					},
 					"response": []
@@ -175,12 +194,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/userInfo/getAll",
-							"protocol": "http",
+							"raw": "https://driverroom.herokuapp.com/userInfo/getAll",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"driverroom",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"userInfo",
 								"getAll"
@@ -204,7 +224,17 @@
 							}
 						},
 						"url": {
-							"raw": ""
+							"raw": "https://driverroom.herokuapp.com/userInfo/setUserInfo",
+							"protocol": "https",
+							"host": [
+								"driverroom",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"userInfo",
+								"setUserInfo"
+							]
 						}
 					},
 					"response": []
@@ -215,11 +245,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/userInfo/deleteUserInfo",
+							"raw": "https://driverroom.herokuapp.com/userInfo/deleteUserInfo",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"driverroom",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"userInfo",
 								"deleteUserInfo"
@@ -234,11 +266,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/userInfo/getUserInfoByUser",
+							"raw": "https://driverroom.herokuapp.com/userInfo/getUserInfoByUser",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"driverroom",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"userInfo",
 								"getUserInfoByUser"
@@ -253,11 +287,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/userInfo/getUserInfoById/{}",
+							"raw": "https://driverroom.herokuapp.com/userInfo/getUserInfoById/{}",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"driverroom",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"userInfo",
 								"getUserInfoById",
@@ -277,7 +313,19 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "https://driverroom.herokuapp.com/serviceCenter/getAll",
+							"protocol": "https",
+							"host": [
+								"driverroom",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"serviceCenter",
+								"getAll"
+							]
+						}
 					},
 					"response": []
 				},
@@ -296,11 +344,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/serviceCenter/saveServiceCenter",
+							"raw": "https://driverroom.herokuapp.com/serviceCenter/saveServiceCenter",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"driverroom",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"serviceCenter",
 								"saveServiceCenter"
@@ -314,7 +364,19 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "https://driverroom.herokuapp.com/serviceCenter/getService",
+							"protocol": "https",
+							"host": [
+								"driverroom",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"serviceCenter",
+								"getService"
+							]
+						}
 					},
 					"response": []
 				},
@@ -324,11 +386,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/serviceCenter/deleteService",
+							"raw": "https://driverroom.herokuapp.com/serviceCenter/deleteService",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"driverroom",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"serviceCenter",
 								"deleteService"
@@ -343,15 +407,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/serviceCenter/getServiceById/{}",
+							"raw": "https://driverroom.herokuapp.com/serviceCenter/getServiceById/{id}",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"driverroom",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"serviceCenter",
 								"getServiceById",
-								"{}"
+								"{id}"
 							]
 						}
 					},
@@ -368,11 +434,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/expert/getAll",
+							"raw": "https://driverroom.herokuapp.com/expert/getAll",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"driverroom",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"expert",
 								"getAll"
@@ -396,11 +464,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/expert/saveExpert",
+							"raw": "https://driverroom.herokuapp.com/expert/saveExpert",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"driverroom",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"expert",
 								"saveExpert"
@@ -415,11 +485,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/expert/getExpert",
+							"raw": "https://driverroom.herokuapp.com/expert/getExpert",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"driverroom",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"expert",
 								"getExpert"
@@ -434,11 +506,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/expert/getExpert/{id}",
+							"raw": "https://driverroom.herokuapp.com/expert/getExpert/{id}",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"driverroom",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"expert",
 								"getExpert",
@@ -454,11 +528,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/expert/deleteExpert",
+							"raw": "https://driverroom.herokuapp.com/expert/deleteExpert",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"driverroom",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"expert",
 								"deleteExpert"
