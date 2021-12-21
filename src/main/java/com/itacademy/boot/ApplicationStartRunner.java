@@ -46,10 +46,10 @@ public class ApplicationStartRunner implements CommandLineRunner {
             userRole.setRoleName("ROLE_ADMIN");
             userRole.setUserEntity(admin);
             roleRepository.save(userRole);
-            setDataBase(100);
+
         }
 
-        System.out.println("Программа запущена");
+
 
     }
 
