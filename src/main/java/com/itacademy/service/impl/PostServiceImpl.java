@@ -7,6 +7,7 @@ import com.itacademy.service.PostService;
 import com.itacademy.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostServiceImpl implements PostService {
@@ -45,11 +46,19 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostModel convertEntityToModel(PostUsersEntity postUsersEntity) {
-        return null;
+        PostModel postModel = new PostModel();
+        postModel.setId(postUsersEntity.getId());
+        postModel.setPostValue(postUsersEntity.getPostValue());
+        postModel.setCreateData(postUsersEntity.getCreateData());
+        return postModel;
     }
 
     @Override
     public List<PostModel> convertEntityToModelList(List<PostUsersEntity> postUsersEntityList) {
-        return null;
+        List<PostModel> postModelList = new ArrayList<>();
+        for(PostUsersEntity postUsersEntity : postUsersEntityList){
+            postModelList.add(convertEntityToModel(postUsersEntity));
+        }
+        return postModelList;
     }
 }
