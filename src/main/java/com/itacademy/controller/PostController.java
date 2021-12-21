@@ -1,11 +1,11 @@
 package com.itacademy.controller;
 
 import com.itacademy.entity.PostUsersEntity;
+import com.itacademy.model.postModel.PostModel;
 import com.itacademy.service.PostService;
+import com.itacademy.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,9 +14,21 @@ import java.util.List;
 public class PostController {
     @Autowired
     private PostService postService;
+    @Autowired
+    private UsersService usersService;
 
     @GetMapping("/getAll")
-    public List<PostUsersEntity> getAll(){
-        return postService.getAll();
+    public List<PostModel> getAll() {
+        return postService.convertEntityToModelList(postService.getAll());
+    }
+
+    @GetMapping("/getAllPostUser")
+    public List<PostModel> getAllPostUser() {
+        return postService.convertEntityToModelList(postService.getPostUserList(usersService.getCurrentUser()));
+    }
+
+    @PostMapping("/newPost")
+    public PostModel newPost(@RequestBody PostUsersEntity postUsersEntity) {
+        return postService.convertEntityToModel(postService.newPost(postUsersEntity));
     }
 }

@@ -38,7 +38,7 @@ public class UsersController {
 
     @GetMapping("/get-current")
     public UserModel getCurrent() {
-        return usersService.convertUserEntityToUserModel( usersService.getCurrentUser());
+        return usersService.convertUserEntityToUserModel(usersService.getCurrentUser());
     }
 
     @PostMapping("/update")

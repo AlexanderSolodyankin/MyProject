@@ -29,12 +29,11 @@ public class UserInfoServiceImpl implements UserInfoService {
     public UserInfoEntity save(UserInfoEntity userInfoEntity) throws IllegalAccessException {
         UserEntity userSaveInfo = usersService.getCurrentUser();
         userInfoEntity.setUserEntity(userSaveInfo);
-        if(userSaveInfo == null) throw new IllegalAccessException(
+        if (userSaveInfo == null) throw new IllegalAccessException(
                 "Нельзя сохранить информацию о пользователе если не существует самого пользователя");
         userInfoEntity.setUserEntity(userSaveInfo);
         return userInfoRepository.save(userInfoEntity);
     }
-
 
 
     @Override
@@ -50,6 +49,7 @@ public class UserInfoServiceImpl implements UserInfoService {
                 () -> new IllegalArgumentException("Информации по Пользователю отсутствует")
         );
     }
+
     @Override
     public UserInfoEntity getUserInfo(Long id) {
         return userInfoRepository.findById(id).orElseThrow(
@@ -76,7 +76,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public List<UserInfoModel> convertUserEntityToUserModelList(List<UserInfoEntity> userInfoEntity) {
         List<UserInfoModel> userInfoModelList = new ArrayList<>();
-        for(UserInfoEntity userInfo : userInfoEntity){
+        for (UserInfoEntity userInfo : userInfoEntity) {
             userInfoModelList.add(convertUserEntityToUserModel(userInfo));
         }
         return userInfoModelList;

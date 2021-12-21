@@ -34,9 +34,9 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 
     @Override
     public ServiceCenterEntity delete(UserEntity userEntity) {
-       ServiceCenterEntity serviceCenterEntity =  getServiceCenter(userEntity);
-       serviceCenterReposit.delete(serviceCenterEntity);
-       return serviceCenterEntity;
+        ServiceCenterEntity serviceCenterEntity = getServiceCenter(userEntity);
+        serviceCenterReposit.delete(serviceCenterEntity);
+        return serviceCenterEntity;
 
     }
 
@@ -52,7 +52,7 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
     public ServiceCenterEntity getServiceCenter(Long id) {
         return serviceCenterReposit.findById(id).orElseThrow(
                 () -> new IllegalArgumentException(" Сервис-Центра под таким ID номером не существует! ")
-                );
+        );
     }
 
     @Override
@@ -71,7 +71,7 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
     public List<ServiceCenterModel> convertServiceEntityToServiceModelList(
             List<ServiceCenterEntity> serviceCenterEntityList) {
         List<ServiceCenterModel> serviceCenterModelList = new ArrayList<>();
-        for(ServiceCenterEntity serviceCenterEntity : serviceCenterEntityList){
+        for (ServiceCenterEntity serviceCenterEntity : serviceCenterEntityList) {
             serviceCenterModelList.add(convertServiceEntityToServiceModel(serviceCenterEntity));
         }
         return serviceCenterModelList;

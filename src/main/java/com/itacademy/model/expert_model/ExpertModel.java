@@ -1,4 +1,4 @@
-package com.itacademy.model.expertModel;
+package com.itacademy.model.expert_model;
 
 import com.itacademy.model.usersModels.UserModel;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.ToString;
 @ToString
 public class ExpertModel {
     private Long id;
-    private  String name;
+    private String name;
     private String expertInfo;
     private UserModel userModel;
 }

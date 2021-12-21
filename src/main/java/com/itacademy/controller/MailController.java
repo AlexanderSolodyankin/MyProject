@@ -16,7 +16,7 @@ public class MailController {
     private MailService mailService;
 
     @PostMapping
-    public Boolean send(@RequestBody MailModel mailModel){
+    public Boolean send(@RequestBody MailModel mailModel) {
         return mailService.send(mailModel.getToEmail(), mailModel.getSubject(), mailModel.getText());
     }
 }

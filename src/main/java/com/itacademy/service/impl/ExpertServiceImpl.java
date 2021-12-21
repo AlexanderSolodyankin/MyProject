@@ -1,10 +1,8 @@
 package com.itacademy.service.impl;
 
 import com.itacademy.entity.ExpertEntity;
-import com.itacademy.entity.ServiceCenterEntity;
 import com.itacademy.entity.UserEntity;
-import com.itacademy.model.expertModel.ExpertModel;
-import com.itacademy.model.serviceCenterModel.ServiceCenterModel;
+import com.itacademy.model.expert_model.ExpertModel;
 import com.itacademy.repository.ExpertRepository;
 import com.itacademy.service.ExpertService;
 import com.itacademy.service.UsersService;
@@ -28,7 +26,6 @@ public class ExpertServiceImpl implements ExpertService {
 
     @Override
     public ExpertEntity saveExpert(ExpertEntity expertEntity) {
-        System.out.println("перед токеном " +expertEntity);
         expertEntity.setUserEntity(usersService.getCurrentUser());
         return expertRepository.save(expertEntity);
     }
@@ -40,9 +37,10 @@ public class ExpertServiceImpl implements ExpertService {
         );
 
     }
+
     @Override
     public ExpertEntity getExpert(Long id) {
-        return  expertRepository.findById(id).orElseThrow(
+        return expertRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException(" Эксперта по данному ID номеру не существует! ")
         );
     }
@@ -66,10 +64,10 @@ public class ExpertServiceImpl implements ExpertService {
 
     @Override
     public List<ExpertModel> convertEntityToModelList(List<ExpertEntity> expertEntityList) {
-            List<ExpertModel> expertModelList = new ArrayList<>();
-            for(ExpertEntity expertEntity : expertEntityList){
-                expertModelList.add(convertEntityToModel(expertEntity));
-            }
+        List<ExpertModel> expertModelList = new ArrayList<>();
+        for (ExpertEntity expertEntity : expertEntityList) {
+            expertModelList.add(convertEntityToModel(expertEntity));
+        }
         return expertModelList;
     }
 }

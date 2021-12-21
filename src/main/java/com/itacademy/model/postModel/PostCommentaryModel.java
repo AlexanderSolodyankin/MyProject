@@ -6,16 +6,12 @@ import lombok.Data;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @ToString
-public class PostModel {
+public class PostCommentaryModel {
     private Long id;
-    private LocalDateTime createData;
-    private String postValue;
+    private String values;
     private UserModel userModel;
-    private List<PostCommentaryModel> postCommentaryModelList;
-
-
+    private LocalDateTime createData;
 }

@@ -8,10 +8,16 @@ import java.util.List;
 
 public interface ServiceCenterService {
     List<ServiceCenterEntity> getAllCerviceCenter();
+
     ServiceCenterEntity save(ServiceCenterEntity serviceCenterEntity);
+
     ServiceCenterEntity delete(UserEntity userEntity);
+
     ServiceCenterEntity getServiceCenter(UserEntity userEntity);
-    ServiceCenterEntity getServiceCenter(Long  id);
+
+    ServiceCenterEntity getServiceCenter(Long id);
+
     ServiceCenterModel convertServiceEntityToServiceModel(ServiceCenterEntity serviceCenterEntity);
+
     List<ServiceCenterModel> convertServiceEntityToServiceModelList(List<ServiceCenterEntity> serviceCenterEntityList);
 }

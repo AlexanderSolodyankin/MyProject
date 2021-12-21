@@ -18,28 +18,31 @@ public class ServiceCenterController {
     private UsersService usersService;
 
     @GetMapping("/getAll")
-    public List<ServiceCenterModel> getAllService(){
+    public List<ServiceCenterModel> getAllService() {
         return serviceCenterService.convertServiceEntityToServiceModelList(
                 serviceCenterService.getAllCerviceCenter());
     }
 
     @PostMapping("/saveServiceCenter")
-    public ServiceCenterModel saveServiceCenter(@RequestBody ServiceCenterEntity serviceCenterEntity){
+    public ServiceCenterModel saveServiceCenter(@RequestBody ServiceCenterEntity serviceCenterEntity) {
         return serviceCenterService.convertServiceEntityToServiceModel(
                 serviceCenterService.save(serviceCenterEntity));
     }
+
     @GetMapping("/getService")
-    public ServiceCenterModel serviceCenterEntity (){
+    public ServiceCenterModel serviceCenterEntity() {
         return serviceCenterService.convertServiceEntityToServiceModel(
                 serviceCenterService.getServiceCenter(usersService.getCurrentUser()));
     }
+
     @DeleteMapping("/deleteService")
-    public ServiceCenterModel deleteService(){
+    public ServiceCenterModel deleteService() {
         return serviceCenterService.convertServiceEntityToServiceModel(
                 serviceCenterService.delete(usersService.getCurrentUser()));
     }
+
     @GetMapping("/getServiceById/{id}")
-    public ServiceCenterModel getUserInfoById(@PathVariable Long id){
+    public ServiceCenterModel getUserInfoById(@PathVariable Long id) {
         return serviceCenterService.convertServiceEntityToServiceModel(
                 serviceCenterService.getServiceCenter(id));
     }

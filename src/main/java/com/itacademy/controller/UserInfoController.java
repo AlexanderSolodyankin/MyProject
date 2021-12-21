@@ -19,7 +19,7 @@ public class UserInfoController {
     private UsersService usersService;
 
     @GetMapping("/getAll")
-    public List<UserInfoModel> getAll(){
+    public List<UserInfoModel> getAll() {
         return userInfoService.convertUserEntityToUserModelList(userInfoService.getAllUsersInfo());
     }
 
@@ -27,21 +27,22 @@ public class UserInfoController {
     public UserInfoModel setUserInfo(@RequestBody UserInfoEntity userInfoEntity) throws IllegalAccessException {
         return userInfoService.convertUserEntityToUserModel(userInfoService.save(userInfoEntity));
     }
+
     @DeleteMapping("/deleteUserInfo")
-    public UserInfoModel deleteUserInfo(){
+    public UserInfoModel deleteUserInfo() {
         return userInfoService.convertUserEntityToUserModel(
                 userInfoService.delete(usersService.getCurrentUser()));
     }
 
     @GetMapping("/getUserInfoByUser")
-    public UserInfoModel getUserInfo(){
+    public UserInfoModel getUserInfo() {
         return userInfoService.convertUserEntityToUserModel(
                 userInfoService.getUserInfo(usersService.getCurrentUser()));
     }
 
 
     @GetMapping("/getUserInfoById/{id}")
-    public UserInfoModel getUserInfoById(@PathVariable Long id){
+    public UserInfoModel getUserInfoById(@PathVariable Long id) {
         return userInfoService.convertUserEntityToUserModel(userInfoService.getUserInfo(id));
     }
 
