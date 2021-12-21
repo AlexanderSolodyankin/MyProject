@@ -16,16 +16,12 @@ public class PostUsers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private LocalDateTime createData;
-    private String name;
     private String postValue;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
-
-
 
     @PrePersist
     public void prePersistCreateData(){
