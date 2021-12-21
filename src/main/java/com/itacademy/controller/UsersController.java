@@ -1,8 +1,8 @@
 package com.itacademy.controller;
 
-import com.itacademy.entity.UserEntity;
-import com.itacademy.model.usersModels.UserAuthModel;
-import com.itacademy.model.usersModels.UserModel;
+import com.itacademy.model.usersModels.UserModelPost;
+import com.itacademy.model.usersModels.UserAuthModelPost;
+import com.itacademy.model.usersModels.UserModelGet;
 import com.itacademy.model.usersModels.UserUpdateModelPassword;
 import com.itacademy.service.UserInfoService;
 import com.itacademy.service.impl.UsersServiceImpl;
@@ -22,37 +22,37 @@ public class UsersController {
 
 
     @GetMapping("/getAll")
-    public List<UserModel> userMenu() {
+    public List<UserModelGet> userMenu() {
         return usersService.convertUserEntityToUserModel(usersService.getAllUsers());
     }
 
     @PostMapping("/registration")
-    public UserModel newUser(@RequestBody UserEntity userEntity) {
-        return usersService.convertUserEntityToUserModel(usersService.newUser(userEntity));
+    public UserModelGet newUser(@RequestBody UserModelPost userModelPost) {
+        return usersService.convertUserEntityToUserModel(usersService.newUser(userModelPost));
     }
 
     @PostMapping("/sing-in")
-    public ResponseEntity<String> sing(@RequestBody UserAuthModel userAuthModel) throws IllegalAccessException {
-        return ResponseEntity.ok(usersService.getAuthorizedToken(userAuthModel));
+    public ResponseEntity<String> sing(@RequestBody UserAuthModelPost userAuthModelPost) throws IllegalAccessException {
+        return ResponseEntity.ok(usersService.getAuthorizedToken(userAuthModelPost));
     }
 
     @GetMapping("/get-current")
-    public UserModel getCurrent() {
+    public UserModelGet getCurrent() {
         return usersService.convertUserEntityToUserModel(usersService.getCurrentUser());
     }
 
     @PostMapping("/update")
-    public UserModel setUpdateUser(@RequestBody UserUpdateModelPassword userNewPassword) throws IllegalAccessException {
+    public UserModelGet setUpdateUser(@RequestBody UserUpdateModelPassword userNewPassword) throws IllegalAccessException {
         return usersService.convertUserEntityToUserModel(usersService.updatePassword(userNewPassword));
     }
 
     @DeleteMapping("/deleteUser")
-    public UserModel deleteUser() {
+    public UserModelGet deleteUser() {
         return usersService.convertUserEntityToUserModel(usersService.deleteUser(usersService.getCurrentUser()));
     }
 
     @GetMapping("/activation/{code}")
-    public UserModel acivationUser(@PathVariable String code) {
+    public UserModelGet acivationUser(@PathVariable String code) {
         return usersService.convertUserEntityToUserModel(usersService.activationUser(code));
     }
 

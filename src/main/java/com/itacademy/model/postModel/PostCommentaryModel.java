@@ -1,7 +1,7 @@
 package com.itacademy.model.postModel;
 
 
-import com.itacademy.model.usersModels.UserModel;
+import com.itacademy.model.usersModels.UserModelGet;
 import lombok.Data;
 import lombok.ToString;
 
@@ -12,6 +12,6 @@ import java.time.LocalDateTime;
 public class PostCommentaryModel {
     private Long id;
     private String values;
-    private UserModel userModel;
+    private UserModelGet userModelGet;
     private LocalDateTime createData;
 }

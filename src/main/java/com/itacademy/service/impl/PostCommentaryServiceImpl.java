@@ -66,7 +66,7 @@ public class PostCommentaryServiceImpl implements PostCommentaryService {
     public PostCommentaryModel convertEntityToModel(PostCommentaryEntity postCommentaryEntity){
         PostCommentaryModel postCommentaryModel = new PostCommentaryModel();
         postCommentaryModel.setId(postCommentaryModel.getId());
-        postCommentaryModel.setUserModel(usersService.convertUserEntityToUserModel(postCommentaryEntity.getUserEntity()));
+        postCommentaryModel.setUserModelGet(usersService.convertUserEntityToUserModel(postCommentaryEntity.getUserEntity()));
         postCommentaryModel.setValues(postCommentaryEntity.getValues());
         postCommentaryModel.setCreateData(postCommentaryEntity.getCreateData());
         return postCommentaryModel;

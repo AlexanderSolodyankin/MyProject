@@ -1,7 +1,7 @@
 package com.itacademy.controller;
 
-import com.itacademy.entity.ExpertEntity;
-import com.itacademy.model.expert_model.ExpertModel;
+import com.itacademy.model.expert_model.ExpertModelGet;
+import com.itacademy.model.expert_model.ExpertModelPost;
 import com.itacademy.service.ExpertService;
 import com.itacademy.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,27 +18,27 @@ public class ExpertController {
     private UsersService usersService;
 
     @GetMapping("/getAll")
-    public List<ExpertModel> getAll() {
+    public List<ExpertModelGet> getAll() {
         return expertService.convertEntityToModelList(expertService.getAll());
     }
 
     @PostMapping("/saveExpert")
-    public ExpertModel saveExpert(@RequestBody ExpertEntity expertEntity) {
-        return expertService.convertEntityToModel(expertService.saveExpert(expertEntity));
+    public ExpertModelGet saveExpert(@RequestBody ExpertModelPost expertModelPost) {
+        return expertService.convertEntityToModel(expertService.saveExpert(expertModelPost));
     }
 
     @GetMapping("/getExpert")
-    public ExpertModel getExpert() {
+    public ExpertModelGet getExpert() {
         return expertService.convertEntityToModel(expertService.getExpert(usersService.getCurrentUser()));
     }
 
     @GetMapping("/getExpert/{id}")
-    public ExpertModel getExpert(@PathVariable Long id) {
+    public ExpertModelGet getExpert(@PathVariable Long id) {
         return expertService.convertEntityToModel(expertService.getExpert(id));
     }
 
     @DeleteMapping("/deleteExpert")
-    public ExpertModel deleteExpert() {
+    public ExpertModelGet deleteExpert() {
         return expertService.convertEntityToModel(expertService.delete(usersService.getCurrentUser()));
     }
 }

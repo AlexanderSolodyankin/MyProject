@@ -2,14 +2,15 @@ package com.itacademy.service;
 
 import com.itacademy.entity.ServiceCenterEntity;
 import com.itacademy.entity.UserEntity;
-import com.itacademy.model.serviceCenterModel.ServiceCenterModel;
+import com.itacademy.model.serviceCenterModel.GetServiceCenterModel;
+import com.itacademy.model.serviceCenterModel.PostServiceCenterModel;
 
 import java.util.List;
 
 public interface ServiceCenterService {
     List<ServiceCenterEntity> getAllCerviceCenter();
 
-    ServiceCenterEntity save(ServiceCenterEntity serviceCenterEntity);
+    ServiceCenterEntity save(PostServiceCenterModel postServiceCenterModel);
 
     ServiceCenterEntity delete(UserEntity userEntity);
 
@@ -17,7 +18,9 @@ public interface ServiceCenterService {
 
     ServiceCenterEntity getServiceCenter(Long id);
 
-    ServiceCenterModel convertServiceEntityToServiceModel(ServiceCenterEntity serviceCenterEntity);
+    GetServiceCenterModel convertServiceEntityToServiceModel(ServiceCenterEntity serviceCenterEntity);
 
-    List<ServiceCenterModel> convertServiceEntityToServiceModelList(List<ServiceCenterEntity> serviceCenterEntityList);
+    List<GetServiceCenterModel> convertServiceEntityToServiceModelList(List<ServiceCenterEntity> serviceCenterEntityList);
+
+    ServiceCenterEntity convertModelToEntity(PostServiceCenterModel postServiceCenterModel);
 }

@@ -1,7 +1,8 @@
 package com.itacademy.controller;
 
 import com.itacademy.entity.ServiceCenterEntity;
-import com.itacademy.model.serviceCenterModel.ServiceCenterModel;
+import com.itacademy.model.serviceCenterModel.GetServiceCenterModel;
+import com.itacademy.model.serviceCenterModel.PostServiceCenterModel;
 import com.itacademy.service.ServiceCenterService;
 import com.itacademy.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,31 +19,31 @@ public class ServiceCenterController {
     private UsersService usersService;
 
     @GetMapping("/getAll")
-    public List<ServiceCenterModel> getAllService() {
+    public List<GetServiceCenterModel> getAllService() {
         return serviceCenterService.convertServiceEntityToServiceModelList(
                 serviceCenterService.getAllCerviceCenter());
     }
 
     @PostMapping("/saveServiceCenter")
-    public ServiceCenterModel saveServiceCenter(@RequestBody ServiceCenterEntity serviceCenterEntity) {
+    public GetServiceCenterModel saveServiceCenter(@RequestBody PostServiceCenterModel postServiceCenterModel) {
         return serviceCenterService.convertServiceEntityToServiceModel(
-                serviceCenterService.save(serviceCenterEntity));
+                serviceCenterService.save(postServiceCenterModel));
     }
 
     @GetMapping("/getService")
-    public ServiceCenterModel serviceCenterEntity() {
+    public GetServiceCenterModel serviceCenterEntity() {
         return serviceCenterService.convertServiceEntityToServiceModel(
                 serviceCenterService.getServiceCenter(usersService.getCurrentUser()));
     }
 
     @DeleteMapping("/deleteService")
-    public ServiceCenterModel deleteService() {
+    public GetServiceCenterModel deleteService() {
         return serviceCenterService.convertServiceEntityToServiceModel(
                 serviceCenterService.delete(usersService.getCurrentUser()));
     }
 
     @GetMapping("/getServiceById/{id}")
-    public ServiceCenterModel getUserInfoById(@PathVariable Long id) {
+    public GetServiceCenterModel getUserInfoById(@PathVariable Long id) {
         return serviceCenterService.convertServiceEntityToServiceModel(
                 serviceCenterService.getServiceCenter(id));
     }

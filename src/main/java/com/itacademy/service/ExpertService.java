@@ -2,14 +2,15 @@ package com.itacademy.service;
 
 import com.itacademy.entity.ExpertEntity;
 import com.itacademy.entity.UserEntity;
-import com.itacademy.model.expert_model.ExpertModel;
+import com.itacademy.model.expert_model.ExpertModelGet;
+import com.itacademy.model.expert_model.ExpertModelPost;
 
 import java.util.List;
 
 public interface ExpertService {
     List<ExpertEntity> getAll();
 
-    ExpertEntity saveExpert(ExpertEntity expertEntity);
+    ExpertEntity saveExpert(ExpertModelPost expertModelPost);
 
     ExpertEntity getExpert(UserEntity userEntity);
 
@@ -17,7 +18,9 @@ public interface ExpertService {
 
     ExpertEntity delete(UserEntity userEntity);
 
-    ExpertModel convertEntityToModel(ExpertEntity expertEntity);
+    ExpertModelGet convertEntityToModel(ExpertEntity expertEntity);
 
-    List<ExpertModel> convertEntityToModelList(List<ExpertEntity> expertEntityList);
+    List<ExpertModelGet> convertEntityToModelList(List<ExpertEntity> expertEntityList);
+
+    ExpertEntity convertModelToEntity(ExpertModelPost expertModelPost);
 }

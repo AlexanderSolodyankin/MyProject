@@ -2,8 +2,9 @@ package com.itacademy.service.impl;
 
 import com.itacademy.entity.UserEntity;
 import com.itacademy.entity.UserRole;
-import com.itacademy.model.usersModels.UserAuthModel;
-import com.itacademy.model.usersModels.UserModel;
+import com.itacademy.model.usersModels.UserModelPost;
+import com.itacademy.model.usersModels.UserAuthModelPost;
+import com.itacademy.model.usersModels.UserModelGet;
 import com.itacademy.model.usersModels.UserUpdateModelPassword;
 import com.itacademy.repository.RoleRepository;
 import com.itacademy.repository.UsersRepository;
@@ -31,29 +32,31 @@ public class UsersServiceImpl implements UsersService {
 
 
     @Override
-    public UserEntity newUser(UserEntity user) {
-        UserEntity userDb = usersRepository.findByLogin(user.getLogin()).orElse(null);
-        if (userDb != null || user.getId() != null) {
+    public UserEntity newUser(UserModelPost userModelPost) {
+        UserEntity userDb = usersRepository.findByLogin(userModelPost.getLogin()).orElse(null);
+        if (userDb != null) {
             throw new IllegalArgumentException("Такой пользователь существует!!");
         }
-        String activationCode = user.getLogin() + ":" + user.getPassword();
+        String activationCode = userModelPost.getLogin() + ":" + userModelPost.getPassword();
         activationCode = new String(Base64.getEncoder().encode(activationCode.getBytes()));
 
-        String encoderPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encoderPassword);
-        user.setIsActive(0L);
+        String encoderPassword = passwordEncoder.encode(userModelPost.getPassword());
+        userModelPost.setPassword(encoderPassword);
 
-        user.setActivationCode(activationCode);
-        user = usersRepository.save(user);
+        UserEntity userEntity = convertModelToEntity(userModelPost);
+        userEntity.setIsActive(0L);
+
+        userEntity.setActivationCode(activationCode);
+        userEntity = usersRepository.save(userEntity);
 
 
         UserRole userRole = new UserRole();
         userRole.setRoleName("ROLE_USER");
-        userRole.setUserEntity(user);
+        userRole.setUserEntity(userEntity);
         roleRepository.save(userRole);
         String messege = "https://driverroom.herokuapp.com/users/activation/" + activationCode;
-        mailService.send(user.getEmail(), user.getLogin(), messege);
-        return user;
+        mailService.send(userEntity.getEmail(), userEntity.getLogin(), messege);
+        return userEntity;
     }
 
     @Override
@@ -87,15 +90,15 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public String getAuthorizedToken(UserAuthModel userAuthModel) throws IllegalAccessException {
-        UserEntity userEntity = usersRepository.findByLogin(userAuthModel.getLogin()).orElseThrow(
+    public String getAuthorizedToken(UserAuthModelPost userAuthModelPost) throws IllegalAccessException {
+        UserEntity userEntity = usersRepository.findByLogin(userAuthModelPost.getLogin()).orElseThrow(
                 () -> new IllegalArgumentException("Неверный логин или пароль."));
 
-        boolean isPasswordMatches = passwordEncoder.matches(userAuthModel.getPassword(), userEntity.getPassword());
+        boolean isPasswordMatches = passwordEncoder.matches(userAuthModelPost.getPassword(), userEntity.getPassword());
         if (!isPasswordMatches) {
             throw new IllegalAccessException("Неверный логин или пароль.");
         }
-        String userNamePasswordPair = userAuthModel.getLogin() + ":" + userAuthModel.getPassword();
+        String userNamePasswordPair = userAuthModelPost.getLogin() + ":" + userAuthModelPost.getPassword();
         return "Basic " + new String(Base64.getEncoder().encode(userNamePasswordPair.getBytes()));
     }
 
@@ -137,20 +140,29 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public UserModel convertUserEntityToUserModel(UserEntity userEntity) {
-        UserModel userModel = new UserModel();
-        userModel.setId(userEntity.getId());
-        userModel.setLogin(userEntity.getLogin());
-        userModel.setEmail(userEntity.getEmail());
-        return userModel;
+    public UserModelGet convertUserEntityToUserModel(UserEntity userEntity) {
+        UserModelGet userModelGet = new UserModelGet();
+        userModelGet.setId(userEntity.getId());
+        userModelGet.setLogin(userEntity.getLogin());
+        userModelGet.setEmail(userEntity.getEmail());
+        return userModelGet;
     }
 
     @Override
-    public List<UserModel> convertUserEntityToUserModel(List<UserEntity> userEntity) {
-        List<UserModel> userModelList = new ArrayList<>();
+    public List<UserModelGet> convertUserEntityToUserModel(List<UserEntity> userEntity) {
+        List<UserModelGet> userModelGetList = new ArrayList<>();
         for (UserEntity userEnty : userEntity) {
-            userModelList.add(convertUserEntityToUserModel(userEnty));
+            userModelGetList.add(convertUserEntityToUserModel(userEnty));
         }
-        return userModelList;
+        return userModelGetList;
+    }
+
+    @Override
+    public UserEntity convertModelToEntity(UserModelPost userModelPost) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setLogin(userModelPost.getLogin());
+        userEntity.setEmail(userModelPost.getEmail());
+        userEntity.setPassword(userModelPost.getPassword());
+        return userEntity;
     }
 }

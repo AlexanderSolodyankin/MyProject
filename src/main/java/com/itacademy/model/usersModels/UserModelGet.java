@@ -4,8 +4,7 @@ import lombok.Data;
 import lombok.ToString;
 
 @Data
-@ToString
-public class UserModel {
+public class UserModelGet {
     private Long id;
     private String login;
     private String email;
