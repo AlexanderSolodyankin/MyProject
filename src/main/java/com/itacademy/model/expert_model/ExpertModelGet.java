@@ -1,6 +1,6 @@
 package com.itacademy.model.expert_model;
 
-import com.itacademy.model.usersModels.UserModelGet;
+import com.itacademy.model.users_models.UserModelGet;
 import lombok.Data;
 
 @Data

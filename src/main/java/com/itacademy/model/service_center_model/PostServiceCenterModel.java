@@ -1,4 +1,4 @@
-package com.itacademy.model.serviceCenterModel;
+package com.itacademy.model.service_center_model;
 
 import lombok.Data;
 

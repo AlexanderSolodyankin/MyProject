@@ -1,9 +1,10 @@
-package com.itacademy.model.usersModels;
+package com.itacademy.model.users_models;
 
 import lombok.Data;
 
 @Data
-public class UserInfoModelPost {
+public class UserInfoModelGet {
+    private Long id;
     private String name;
     private String serName;
     private String patronymic;
@@ -12,4 +13,5 @@ public class UserInfoModelPost {
     private String city;
     private String car;
     private boolean gender;
+    private UserModelGet userModelGet;
 }

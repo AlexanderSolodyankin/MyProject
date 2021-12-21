@@ -1,9 +1,9 @@
 package com.itacademy.controller;
 
-import com.itacademy.model.usersModels.UserModelPost;
-import com.itacademy.model.usersModels.UserAuthModelPost;
-import com.itacademy.model.usersModels.UserModelGet;
-import com.itacademy.model.usersModels.UserUpdateModelPassword;
+import com.itacademy.model.users_models.UserModelPost;
+import com.itacademy.model.users_models.UserAuthModelPost;
+import com.itacademy.model.users_models.UserModelGet;
+import com.itacademy.model.users_models.UserUpdateModelPassword;
 import com.itacademy.service.UserInfoService;
 import com.itacademy.service.impl.UsersServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

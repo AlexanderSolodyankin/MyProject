@@ -3,7 +3,7 @@ package com.itacademy.service.impl;
 import com.itacademy.entity.PostCommentaryEntity;
 import com.itacademy.entity.PostUsersEntity;
 import com.itacademy.entity.UserEntity;
-import com.itacademy.model.postModel.PostCommentaryModel;
+import com.itacademy.model.post_model.PostCommentaryModelGet;
 import com.itacademy.repository.PostCommRepository;
 import com.itacademy.service.PostCommentaryService;
 import com.itacademy.service.UsersService;
@@ -63,21 +63,21 @@ public class PostCommentaryServiceImpl implements PostCommentaryService {
     }
 
     @Override
-    public PostCommentaryModel convertEntityToModel(PostCommentaryEntity postCommentaryEntity){
-        PostCommentaryModel postCommentaryModel = new PostCommentaryModel();
-        postCommentaryModel.setId(postCommentaryModel.getId());
-        postCommentaryModel.setUserModelGet(usersService.convertUserEntityToUserModel(postCommentaryEntity.getUserEntity()));
-        postCommentaryModel.setValues(postCommentaryEntity.getValues());
-        postCommentaryModel.setCreateData(postCommentaryEntity.getCreateData());
-        return postCommentaryModel;
+    public PostCommentaryModelGet convertEntityToModel(PostCommentaryEntity postCommentaryEntity){
+        PostCommentaryModelGet postCommentaryModelGet = new PostCommentaryModelGet();
+        postCommentaryModelGet.setId(postCommentaryModelGet.getId());
+        postCommentaryModelGet.setUserModelGet(usersService.convertUserEntityToUserModel(postCommentaryEntity.getUserEntity()));
+        postCommentaryModelGet.setValues(postCommentaryEntity.getValues());
+        postCommentaryModelGet.setCreateData(postCommentaryEntity.getCreateData());
+        return postCommentaryModelGet;
     }
 
     @Override
-    public List<PostCommentaryModel> converEntityToModelList(List<PostCommentaryEntity> postCommentaryEntityList){
-        List<PostCommentaryModel> postCommentaryModelList = new ArrayList<>();
+    public List<PostCommentaryModelGet> converEntityToModelList(List<PostCommentaryEntity> postCommentaryEntityList){
+        List<PostCommentaryModelGet> postCommentaryModelGetList = new ArrayList<>();
         for(PostCommentaryEntity postCommentaryEntity: postCommentaryEntityList){
-            postCommentaryModelList.add(convertEntityToModel(postCommentaryEntity));
+            postCommentaryModelGetList.add(convertEntityToModel(postCommentaryEntity));
         }
-        return postCommentaryModelList;
+        return postCommentaryModelGetList;
     }
 }

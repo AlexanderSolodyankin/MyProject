@@ -3,7 +3,7 @@ package com.itacademy.service;
 import com.itacademy.entity.PostCommentaryEntity;
 import com.itacademy.entity.PostUsersEntity;
 import com.itacademy.entity.UserEntity;
-import com.itacademy.model.postModel.PostCommentaryModel;
+import com.itacademy.model.post_model.PostCommentaryModelGet;
 
 import java.util.List;
 
@@ -24,9 +24,9 @@ public interface PostCommentaryService {
 
     UserEntity getUsersByPost(PostCommentaryEntity postCommentaryEntity);
 
-    PostCommentaryModel convertEntityToModel(PostCommentaryEntity postCommentaryEntity);
+    PostCommentaryModelGet convertEntityToModel(PostCommentaryEntity postCommentaryEntity);
 
-    List<PostCommentaryModel> converEntityToModelList(List<PostCommentaryEntity> postCommentaryEntityList);
+    List<PostCommentaryModelGet> converEntityToModelList(List<PostCommentaryEntity> postCommentaryEntityList);
 
 
 }

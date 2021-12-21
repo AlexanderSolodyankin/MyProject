@@ -2,8 +2,8 @@ package com.itacademy.service.impl;
 
 import com.itacademy.entity.UserInfoEntity;
 import com.itacademy.entity.UserEntity;
-import com.itacademy.model.usersModels.UserInfoModelGet;
-import com.itacademy.model.usersModels.UserInfoModelPost;
+import com.itacademy.model.users_models.UserInfoModelGet;
+import com.itacademy.model.users_models.UserInfoModelPost;
 import com.itacademy.repository.UserInfoRepository;
 import com.itacademy.service.UserInfoService;
 import com.itacademy.service.UsersService;

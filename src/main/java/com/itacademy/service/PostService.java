@@ -3,7 +3,7 @@ package com.itacademy.service;
 
 import com.itacademy.entity.PostUsersEntity;
 import com.itacademy.entity.UserEntity;
-import com.itacademy.model.postModel.PostModel;
+import com.itacademy.model.post_model.PostModelGet;
 
 import java.util.List;
 
@@ -22,9 +22,9 @@ public interface PostService {
 
     PostUsersEntity updatePost(PostUsersEntity postUsersEntity);
 
-    PostModel convertEntityToModel(PostUsersEntity postUsersEntity);
+    PostModelGet convertEntityToModel(PostUsersEntity postUsersEntity);
 
-    List<PostModel> convertEntityToModelList(List<PostUsersEntity> postUsersEntityList);
+    List<PostModelGet> convertEntityToModelList(List<PostUsersEntity> postUsersEntityList);
 
 
 }

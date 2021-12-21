@@ -1,7 +1,7 @@
 package com.itacademy.controller;
 
-import com.itacademy.model.usersModels.UserInfoModelGet;
-import com.itacademy.model.usersModels.UserInfoModelPost;
+import com.itacademy.model.users_models.UserInfoModelGet;
+import com.itacademy.model.users_models.UserInfoModelPost;
 import com.itacademy.service.UserInfoService;
 import com.itacademy.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;

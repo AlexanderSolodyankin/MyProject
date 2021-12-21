@@ -1,7 +1,6 @@
-package com.itacademy.model.usersModels;
+package com.itacademy.model.users_models;
 
 import lombok.Data;
-import lombok.ToString;
 
 @Data
 public class UserModelGet {

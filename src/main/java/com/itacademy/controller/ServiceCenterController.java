@@ -1,8 +1,7 @@
 package com.itacademy.controller;
 
-import com.itacademy.entity.ServiceCenterEntity;
-import com.itacademy.model.serviceCenterModel.GetServiceCenterModel;
-import com.itacademy.model.serviceCenterModel.PostServiceCenterModel;
+import com.itacademy.model.service_center_model.GetServiceCenterModel;
+import com.itacademy.model.service_center_model.PostServiceCenterModel;
 import com.itacademy.service.ServiceCenterService;
 import com.itacademy.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;

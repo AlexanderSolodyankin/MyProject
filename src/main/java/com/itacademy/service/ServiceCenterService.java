@@ -2,8 +2,8 @@ package com.itacademy.service;
 
 import com.itacademy.entity.ServiceCenterEntity;
 import com.itacademy.entity.UserEntity;
-import com.itacademy.model.serviceCenterModel.GetServiceCenterModel;
-import com.itacademy.model.serviceCenterModel.PostServiceCenterModel;
+import com.itacademy.model.service_center_model.GetServiceCenterModel;
+import com.itacademy.model.service_center_model.PostServiceCenterModel;
 
 import java.util.List;
 

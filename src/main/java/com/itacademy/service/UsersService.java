@@ -1,10 +1,10 @@
 package com.itacademy.service;
 
 import com.itacademy.entity.UserEntity;
-import com.itacademy.model.usersModels.UserModelPost;
-import com.itacademy.model.usersModels.UserAuthModelPost;
-import com.itacademy.model.usersModels.UserModelGet;
-import com.itacademy.model.usersModels.UserUpdateModelPassword;
+import com.itacademy.model.users_models.UserModelPost;
+import com.itacademy.model.users_models.UserAuthModelPost;
+import com.itacademy.model.users_models.UserModelGet;
+import com.itacademy.model.users_models.UserUpdateModelPassword;
 
 import java.util.List;
 

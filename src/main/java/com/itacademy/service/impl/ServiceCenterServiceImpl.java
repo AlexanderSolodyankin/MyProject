@@ -2,8 +2,8 @@ package com.itacademy.service.impl;
 
 import com.itacademy.entity.ServiceCenterEntity;
 import com.itacademy.entity.UserEntity;
-import com.itacademy.model.serviceCenterModel.GetServiceCenterModel;
-import com.itacademy.model.serviceCenterModel.PostServiceCenterModel;
+import com.itacademy.model.service_center_model.GetServiceCenterModel;
+import com.itacademy.model.service_center_model.PostServiceCenterModel;
 import com.itacademy.repository.ServiceCenterReposit;
 import com.itacademy.service.ServiceCenterService;
 import com.itacademy.service.UsersService;

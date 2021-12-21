@@ -1,7 +1,7 @@
-package com.itacademy.model.postModel;
+package com.itacademy.model.post_model;
 
 
-import com.itacademy.model.usersModels.UserModelGet;
+import com.itacademy.model.users_models.UserModelGet;
 import lombok.Data;
 import lombok.ToString;
 
@@ -10,12 +10,10 @@ import java.util.List;
 
 @Data
 @ToString
-public class PostModel {
+public class PostModelGet {
     private Long id;
     private LocalDateTime createData;
     private String postValue;
     private UserModelGet userModelGet;
-    private List<PostCommentaryModel> postCommentaryModelList;
-
-
+    private List<PostCommentaryModelGet> postCommentaryModelGetList;
 }
