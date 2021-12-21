@@ -1,6 +1,7 @@
 package com.itacademy.service.impl;
 
-import com.itacademy.entity.PostUsers;
+import com.itacademy.entity.PostUsersEntity;
+import com.itacademy.model.postModel.PostModel;
 import com.itacademy.repository.PostRepository;
 import com.itacademy.service.PostService;
 import com.itacademy.service.UsersService;
@@ -16,27 +17,39 @@ public class PostServiceImpl implements PostService {
     private UsersService usersService;
 
     @Override
-    public List<PostUsers> getAll() {
+    public List<PostUsersEntity> getAll() {
         return postRepository.findAll();
     }
 
     @Override
-    public List<PostUsers> getPostUser() {
+    public List<PostUsersEntity> getPostUser() {
         return postRepository.findByUserEntity(usersService.getCurrentUser()).orElse(null);
     }
 
     @Override
-    public PostUsers getPostUserUnit() {
+    public PostUsersEntity getPostUserUnit(String postValues) {
+        return postRepository.findByValues(postValues).orElseThrow( () ->
+                new IllegalArgumentException("Такого поста не существует"));
+    }
+
+    @Override
+    public PostUsersEntity deletePost(Long id) {
+        return postRepository.getById(id);
+    }
+
+    @Override
+    public PostUsersEntity updatePost(PostUsersEntity postUsersEntity) {
+        postUsersEntity.setUserEntity(usersService.getCurrentUser());
+        return postRepository.save(postUsersEntity);
+    }
+
+    @Override
+    public PostModel convertEntityToModel(PostUsersEntity postUsersEntity) {
         return null;
     }
 
     @Override
-    public PostUsers deletePost(Long id) {
-        return null;
-    }
-
-    @Override
-    public PostUsers updatePost(PostUsers postUsers) {
+    public List<PostModel> convertEntityToModelList(List<PostUsersEntity> postUsersEntityList) {
         return null;
     }
 }

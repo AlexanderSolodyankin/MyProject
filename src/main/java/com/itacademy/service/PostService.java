@@ -1,15 +1,19 @@
 package com.itacademy.service;
 
-import com.itacademy.entity.PostUsers;
+import com.itacademy.entity.PostUsersEntity;
+import com.itacademy.model.postModel.PostModel;
 
 import java.util.List;
 
 public interface PostService {
-    List<PostUsers> getAll();
-    List<PostUsers> getPostUser();
-    PostUsers getPostUserUnit();
-    PostUsers deletePost(Long id);
-    PostUsers updatePost(PostUsers postUsers);
+    List<PostUsersEntity> getAll();
+    List<PostUsersEntity> getPostUser();
+    PostUsersEntity getPostUserUnit(String postValues);
+    PostUsersEntity deletePost(Long id);
+    PostUsersEntity updatePost(PostUsersEntity postUsersEntity);
+    PostModel convertEntityToModel(PostUsersEntity postUsersEntity);
+    List<PostModel> convertEntityToModelList(List<PostUsersEntity> postUsersEntityList);
+
 
 
 }

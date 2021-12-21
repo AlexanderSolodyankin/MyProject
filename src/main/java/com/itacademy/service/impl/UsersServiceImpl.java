@@ -86,7 +86,6 @@ public class UsersServiceImpl implements UsersService {
         return usersRepository.save(user);
     }
 
-
     @Override
     public String getAuthorizedToken(UserAuthModel userAuthModel) throws IllegalAccessException {
         UserEntity userEntity = usersRepository.findByLogin(userAuthModel.getLogin()).orElseThrow(
