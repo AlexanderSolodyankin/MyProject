@@ -31,4 +31,9 @@ public class PostController {
     public PostModel newPost(@RequestBody PostUsersEntity postUsersEntity) {
         return postService.convertEntityToModel(postService.newPost(postUsersEntity));
     }
+
+    @GetMapping("/getPost/{id}")
+    public PostModel getById(@PathVariable Long id){
+        return postService.convertEntityToModel(postService.getById(id));
+    }
 }

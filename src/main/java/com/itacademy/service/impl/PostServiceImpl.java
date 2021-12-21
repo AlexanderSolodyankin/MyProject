@@ -41,7 +41,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostUsersEntity getPostUserUnit(String postValues) {
+    public PostUsersEntity getByValues(String postValues) {
         return postRepository.findByPostValue(postValues).orElseThrow(() ->
                 new IllegalArgumentException("Такого поста не существует"));
     }
@@ -54,6 +54,11 @@ public class PostServiceImpl implements PostService {
         }
         postRepository.delete(postUsersEntity);
         return postUsersEntity;
+    }
+
+    @Override
+    public PostUsersEntity getById(Long id) {
+        return postRepository.getById(id);
     }
 
     @Override

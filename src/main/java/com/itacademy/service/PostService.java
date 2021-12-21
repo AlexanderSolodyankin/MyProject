@@ -14,9 +14,11 @@ public interface PostService {
 
     PostUsersEntity newPost(PostUsersEntity postUsersEntity);
 
-    PostUsersEntity getPostUserUnit(String postValues);
+    PostUsersEntity getByValues(String postValues);
 
     PostUsersEntity deletePost(Long id);
+
+    PostUsersEntity getById(Long id);
 
     PostUsersEntity updatePost(PostUsersEntity postUsersEntity);
 
