@@ -89,8 +89,6 @@ public class ApplicationStartRunner implements CommandLineRunner {
             expertEntity.setExpertInfo("Expert Information " + i);
             expertEntity.setUserEntity(userEntity);
             expertService.save(expertEntity);
-
-
         }
     }
 }
