@@ -4,6 +4,7 @@ import com.itacademy.entity.PublicationCommentaryEntity;
 import com.itacademy.entity.PublicationUsersEntity;
 import com.itacademy.entity.UserEntity;
 import com.itacademy.model.post_model.PublicationCommentaryModelGet;
+import com.itacademy.model.post_model.PublicationCommintaryPost;
 import com.itacademy.model.post_model.PublicationModelGet;
 import com.itacademy.model.post_model.PublicationModelPost;
 
@@ -14,7 +15,7 @@ public interface PublicationCommentaryService {
 
     List<PublicationCommentaryEntity> getAllPostUnit(PublicationUsersEntity publicationUsersEntity);
 
-    PublicationCommentaryEntity newCommentary(PublicationModelPost post, Long id);
+    PublicationCommentaryEntity newCommentary(PublicationCommintaryPost post, Long id);
 
     PublicationCommentaryEntity getCommentUsers(UserEntity userEntity);
 
@@ -31,7 +32,7 @@ public interface PublicationCommentaryService {
     List<PublicationCommentaryModelGet> converEntityToModelList(
             List<PublicationCommentaryEntity> publicationCommentaryEntityList);
 
-    PublicationCommentaryEntity convertModelToEntity(PublicationModelPost post);
+    PublicationCommentaryEntity convertModelToEntity(PublicationCommintaryPost post);
 
 
 }

@@ -1,9 +1,10 @@
 package com.itacademy.controller;
 
-import com.itacademy.entity.PublicationUsersEntity;
 import com.itacademy.model.post_model.PublicationCommentaryModelGet;
+import com.itacademy.model.post_model.PublicationCommintaryPost;
 import com.itacademy.model.post_model.PublicationModelGet;
 import com.itacademy.model.post_model.PublicationModelPost;
+import com.itacademy.service.PublicationCommentaryService;
 import com.itacademy.service.PublicationService;
 import com.itacademy.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class PublicationController {
     private PublicationService publicationService;
     @Autowired
     private UsersService usersService;
+    @Autowired
+    private PublicationCommentaryService commentaryService;
 
     @GetMapping("/getAll")
     public List<PublicationModelGet> getAll() {
@@ -46,6 +49,8 @@ public class PublicationController {
        return  publicationModelGet.getPublicationCommentaryModelGetList();
     }
 
-//    @PostMapping("/getPost/{id}/commit/newCommit")
-//    public
+    @PostMapping("/getPost/{id}/commit/newCommit")
+    public PublicationCommentaryModelGet newCommit(@RequestBody PublicationCommintaryPost  post, @PathVariable Long id){
+        return commentaryService.convertEntityToModel(commentaryService.newCommentary(post, id));
+    }
 }

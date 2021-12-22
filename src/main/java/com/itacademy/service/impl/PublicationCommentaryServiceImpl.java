@@ -4,6 +4,7 @@ import com.itacademy.entity.PublicationCommentaryEntity;
 import com.itacademy.entity.PublicationUsersEntity;
 import com.itacademy.entity.UserEntity;
 import com.itacademy.model.post_model.PublicationCommentaryModelGet;
+import com.itacademy.model.post_model.PublicationCommintaryPost;
 import com.itacademy.model.post_model.PublicationModelGet;
 import com.itacademy.model.post_model.PublicationModelPost;
 import com.itacademy.repository.PublicationCommRepository;
@@ -34,7 +35,7 @@ public class PublicationCommentaryServiceImpl implements PublicationCommentarySe
     }
 
     @Override
-    public PublicationCommentaryEntity newCommentary(PublicationModelPost post, Long id) {
+    public PublicationCommentaryEntity newCommentary(PublicationCommintaryPost post, Long id) {
         PublicationCommentaryEntity entity = convertModelToEntity(post);
         return publicationCommRepository.save(entity);
     }
@@ -88,10 +89,10 @@ public class PublicationCommentaryServiceImpl implements PublicationCommentarySe
     }
 
     @Override
-    public PublicationCommentaryEntity convertModelToEntity(PublicationModelPost post) {
+    public PublicationCommentaryEntity convertModelToEntity(PublicationCommintaryPost post) {
         PublicationCommentaryEntity entity = new PublicationCommentaryEntity();
         entity.setUserEntity(usersService.getCurrentUser());
-        entity.setValues(post.getPostValue());
+        entity.setValues(post.getValues());
         return entity;
     }
 }
