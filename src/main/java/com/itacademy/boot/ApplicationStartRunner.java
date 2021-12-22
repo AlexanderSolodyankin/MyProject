@@ -31,6 +31,8 @@ public class ApplicationStartRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        // Тестовая проверка приложение с авто заполнением
+
         if (usersService.getByUser("admin") == null) {
             UserEntity admin = new UserEntity();
             admin.setLogin("admin");

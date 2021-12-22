@@ -30,15 +30,15 @@ public class ServiceCenterController {
     }
 
     @GetMapping("/getService")
-    public GetServiceCenterModel serviceCenterEntity() {
-        return serviceCenterService.convertServiceEntityToServiceModel(
+    public List<GetServiceCenterModel> serviceCenterEntity() {
+        return serviceCenterService.convertServiceEntityToServiceModelList(
                 serviceCenterService.getServiceCenter(usersService.getCurrentUser()));
     }
 
-    @DeleteMapping("/deleteService")
-    public GetServiceCenterModel deleteService() {
+    @DeleteMapping("/deleteService/{id}")
+    public GetServiceCenterModel deleteService(@PathVariable Long id) {
         return serviceCenterService.convertServiceEntityToServiceModel(
-                serviceCenterService.delete(usersService.getCurrentUser()));
+                serviceCenterService.delete(id));
     }
 
     @GetMapping("/getServiceById/{id}")

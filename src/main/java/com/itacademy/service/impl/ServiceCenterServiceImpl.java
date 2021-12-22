@@ -35,19 +35,20 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
     }
 
     @Override
-    public ServiceCenterEntity delete(UserEntity userEntity) {
-        ServiceCenterEntity serviceCenterEntity = getServiceCenter(userEntity);
-        serviceCenterReposit.delete(serviceCenterEntity);
-        return serviceCenterEntity;
+    public ServiceCenterEntity delete(Long id) {
+        ServiceCenterEntity entity = serviceCenterReposit.getById(id);
+        if(!entity.getUserEntity().equals(usersService.getCurrentUser())){
+            throw  new IllegalArgumentException("Нельзя удолять чужую публикацию");
+        }
+        serviceCenterReposit.delete(entity);
+
+        return entity;
 
     }
 
     @Override
-    public ServiceCenterEntity getServiceCenter(UserEntity userEntity) {
-        return serviceCenterReposit.findByUserEntity(userEntity).orElseThrow(
-                () -> new IllegalArgumentException(" Сервис-Центра закрепленного по данному пользователю отсутствует! ")
-        );
-    }
+    public List<ServiceCenterEntity> getServiceCenter(UserEntity userEntity) {
+        return serviceCenterReposit.findByUserEntity(userEntity).orElse(null);    }
 
     @Override
     public ServiceCenterEntity getServiceCenter(Long id) {

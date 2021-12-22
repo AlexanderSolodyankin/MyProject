@@ -12,9 +12,9 @@ public interface ServiceCenterService {
 
     ServiceCenterEntity save(PostServiceCenterModel postServiceCenterModel);
 
-    ServiceCenterEntity delete(UserEntity userEntity);
+    ServiceCenterEntity delete(Long Id);
 
-    ServiceCenterEntity getServiceCenter(UserEntity userEntity);
+    List<ServiceCenterEntity> getServiceCenter(UserEntity userEntity);
 
     ServiceCenterEntity getServiceCenter(Long id);
 
