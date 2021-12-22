@@ -64,6 +64,9 @@ public class PublicationServiceImpl implements PublicationService {
     @Override
     public PublicationUsersEntity updatePost(PublicationModelGet get) {
         PublicationUsersEntity entity = getById(get.getId());
+        if(!entity.getUserEntity().equals(usersService.getCurrentUser())){
+            throw new IllegalArgumentException("Нельзя менять чужую публкацию!!!");
+        }
         entity.setPostValue(get.getPostValue());
         return publicationRepository.save(entity);
     }

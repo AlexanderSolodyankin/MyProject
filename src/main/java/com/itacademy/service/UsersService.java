@@ -26,7 +26,7 @@ public interface UsersService {
 
     UserEntity getCurrentUser();
 
-    UserEntity activationUser(String activation);
+    String activationUser(String activation);
 
     UserModelGet convertUserEntityToUserModel(UserEntity userEntity);
 

@@ -31,7 +31,7 @@ public class PublicationCommentaryServiceImpl implements PublicationCommentarySe
 
     @Override
     public List<PublicationCommentaryEntity> getAllPostUnit(PublicationUsersEntity publicationUsersEntity) {
-        return publicationCommRepository.findByPostUsersEntity(publicationUsersEntity).orElse(null);
+        return publicationCommRepository.findByPublicationUsersEntity(publicationUsersEntity).orElse(null);
     }
 
     @Override
@@ -53,7 +53,11 @@ public class PublicationCommentaryServiceImpl implements PublicationCommentarySe
 
     @Override
     public PublicationCommentaryEntity updateCommentary(PublicationModelGet get) {
+
         PublicationCommentaryEntity entity = getById(get.getId());
+        if(!entity.getUserEntity().equals(usersService.getCurrentUser())){
+            throw  new IllegalArgumentException("Нельзя менять чужой коментарий!!!");
+        }
         entity.setValues(get.getPostValue());
         return publicationCommRepository.save(entity);
     }

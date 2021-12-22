@@ -54,6 +54,7 @@ public class UsersServiceImpl implements UsersService {
         userRole.setRoleName("ROLE_USER");
         userRole.setUserEntity(userEntity);
         roleRepository.save(userRole);
+
         String messege = "https://driverroom.herokuapp.com/users/activation/" + activationCode;
         mailService.send(userEntity.getEmail(), userEntity.getLogin(), messege);
         return userEntity;
@@ -127,7 +128,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public UserEntity activationUser(String activation) {
+    public String activationUser(String activation) {
         UserEntity userEntity = usersRepository.findByActivationCode(activation).orElseThrow(
                 () -> new IllegalArgumentException("Проблемы с активацией акаунта"));
 
@@ -136,7 +137,7 @@ public class UsersServiceImpl implements UsersService {
             userEntity.setActivationCode(null);
         }
         usersRepository.save(userEntity);
-        return userEntity;
+        return "Basic " + activation;
     }
 
     @Override

@@ -53,4 +53,5 @@ public class PublicationController {
     public PublicationCommentaryModelGet newCommit(@RequestBody PublicationCommintaryPost  post, @PathVariable Long id){
         return commentaryService.convertEntityToModel(commentaryService.newCommentary(post, id));
     }
+
 }

@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PublicationCommRepository extends JpaRepository<PublicationCommentaryEntity, Long> {
-    Optional<List<PublicationCommentaryEntity>> findByPostUsersEntity(PublicationUsersEntity publicationUsersEntity);
+    Optional<List<PublicationCommentaryEntity>> findByPublicationUsersEntity(PublicationUsersEntity publicationUsersEntity);
 
 }
