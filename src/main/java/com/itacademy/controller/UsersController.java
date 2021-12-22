@@ -52,8 +52,8 @@ public class UsersController {
     }
 
     @GetMapping("/activation/{code}")
-    public UserModelGet acivationUser(@PathVariable String code) {
-        return usersService.convertUserEntityToUserModel(usersService.activationUser(code));
+    public String acivationUser(@PathVariable String code) {
+        return usersService.activationUser(code);
     }
 
 }
