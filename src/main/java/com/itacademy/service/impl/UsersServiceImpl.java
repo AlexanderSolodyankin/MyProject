@@ -165,4 +165,6 @@ public class UsersServiceImpl implements UsersService {
         userEntity.setPassword(userModelPost.getPassword());
         return userEntity;
     }
+
+
 }

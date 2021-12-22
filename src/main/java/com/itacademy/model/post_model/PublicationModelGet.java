@@ -10,10 +10,10 @@ import java.util.List;
 
 @Data
 @ToString
-public class PostModelGet {
+public class PublicationModelGet {
     private Long id;
     private LocalDateTime createData;
     private String postValue;
     private UserModelGet userModelGet;
-    private List<PostCommentaryModelGet> postCommentaryModelGetList;
+    private List<PublicationCommentaryModelGet> publicationCommentaryModelGetList;
 }
