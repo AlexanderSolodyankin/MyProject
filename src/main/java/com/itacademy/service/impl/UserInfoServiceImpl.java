@@ -69,7 +69,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         userInfoModelGet.setCountry(userInfoEntity.getCountry());
         userInfoModelGet.setCity(userInfoEntity.getCity());
         userInfoModelGet.setCar(userInfoEntity.getCar());
-        userInfoModelGet.setGender(userInfoModelGet.isGender());
+        userInfoModelGet.setGender(userInfoEntity.isGender());
         return userInfoModelGet;
     }
 

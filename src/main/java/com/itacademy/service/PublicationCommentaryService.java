@@ -34,5 +34,7 @@ public interface PublicationCommentaryService {
 
     PublicationCommentaryEntity convertModelToEntity(PublicationCommintaryPost post);
 
+    PublicationCommentaryEntity convertModelToEntity(PublicationCommentaryModelGet get);
+
 
 }

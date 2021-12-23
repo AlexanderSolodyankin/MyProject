@@ -6,9 +6,9 @@ import com.itacademy.entity.UserEntity;
 import com.itacademy.model.post_model.PublicationCommentaryModelGet;
 import com.itacademy.model.post_model.PublicationCommintaryPost;
 import com.itacademy.model.post_model.PublicationModelGet;
-import com.itacademy.model.post_model.PublicationModelPost;
 import com.itacademy.repository.PublicationCommRepository;
 import com.itacademy.service.PublicationCommentaryService;
+import com.itacademy.service.PublicationService;
 import com.itacademy.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +23,8 @@ public class PublicationCommentaryServiceImpl implements PublicationCommentarySe
     private PublicationCommRepository publicationCommRepository;
     @Autowired
     private UsersService usersService;
+    @Autowired
+    private PublicationService postService;
 
     @Override
     public List<PublicationCommentaryEntity> getAll() {
@@ -37,6 +39,8 @@ public class PublicationCommentaryServiceImpl implements PublicationCommentarySe
     @Override
     public PublicationCommentaryEntity newCommentary(PublicationCommintaryPost post, Long id) {
         PublicationCommentaryEntity entity = convertModelToEntity(post);
+        entity.setPublicationUsersEntity(postService.getById(id));
+        entity.setUserEntity(usersService.getCurrentUser());
         return publicationCommRepository.save(entity);
     }
 
@@ -46,17 +50,25 @@ public class PublicationCommentaryServiceImpl implements PublicationCommentarySe
     }
 
     @Override
-    public PublicationCommentaryEntity deleteComment(PublicationCommentaryEntity publicationCommentaryEntity) {
-        publicationCommRepository.delete(publicationCommentaryEntity);
-        return publicationCommentaryEntity;
+    public PublicationCommentaryEntity deleteComment(PublicationCommentaryEntity entity) {
+
+        if(!usersService.isAdmin(usersService.getCurrentUser())){
+            if(!entity.getUserEntity().equals(usersService.getCurrentUser())){
+                throw  new IllegalArgumentException("Нельзя удолять чужой коментарий!!!");
+            }
+        }
+            publicationCommRepository.delete(entity);
+        return entity;
     }
 
     @Override
     public PublicationCommentaryEntity updateCommentary(PublicationModelGet get) {
 
         PublicationCommentaryEntity entity = getById(get.getId());
-        if(!entity.getUserEntity().equals(usersService.getCurrentUser())){
-            throw  new IllegalArgumentException("Нельзя менять чужой коментарий!!!");
+        if(!usersService.isAdmin(usersService.getCurrentUser())) {
+            if (!entity.getUserEntity().equals(usersService.getCurrentUser())) {
+                throw new IllegalArgumentException("Нельзя менять чужой коментарий!!!");
+            }
         }
         entity.setValues(get.getPostValue());
         return publicationCommRepository.save(entity);
@@ -73,30 +85,36 @@ public class PublicationCommentaryServiceImpl implements PublicationCommentarySe
     }
 
     @Override
-    public PublicationCommentaryModelGet convertEntityToModel(PublicationCommentaryEntity publicationCommentaryEntity) {
-        PublicationCommentaryModelGet publicationCommentaryModelGet = new PublicationCommentaryModelGet();
-        publicationCommentaryModelGet.setId(publicationCommentaryModelGet.getId());
-        publicationCommentaryModelGet.setUserModelGet(usersService.convertUserEntityToUserModel(publicationCommentaryEntity.getUserEntity()));
-        publicationCommentaryModelGet.setValues(publicationCommentaryEntity.getValues());
-        publicationCommentaryModelGet.setCreateData(publicationCommentaryEntity.getCreateData());
-        return publicationCommentaryModelGet;
+    public PublicationCommentaryModelGet convertEntityToModel(PublicationCommentaryEntity entity) {
+        PublicationCommentaryModelGet model = new PublicationCommentaryModelGet();
+        model.setId(entity.getId());
+        model.setUserModelGet(usersService.convertUserEntityToUserModel(entity.getUserEntity()));
+        model.setValues(entity.getValues());
+        model.setCreateData(entity.getCreateData());
+        return model;
     }
 
     @Override
     public List<PublicationCommentaryModelGet> converEntityToModelList(
-            List<PublicationCommentaryEntity> publicationCommentaryEntityList) {
+                                     List<PublicationCommentaryEntity> publicationCommentaryEntityList) {
         List<PublicationCommentaryModelGet> publicationCommentaryModelGetList = new ArrayList<>();
         for (PublicationCommentaryEntity publicationCommentaryEntity : publicationCommentaryEntityList) {
             publicationCommentaryModelGetList.add(convertEntityToModel(publicationCommentaryEntity));
         }
+
         return publicationCommentaryModelGetList;
     }
 
     @Override
     public PublicationCommentaryEntity convertModelToEntity(PublicationCommintaryPost post) {
         PublicationCommentaryEntity entity = new PublicationCommentaryEntity();
-        entity.setUserEntity(usersService.getCurrentUser());
         entity.setValues(post.getValues());
+        return entity;
+    }
+    @Override
+    public PublicationCommentaryEntity convertModelToEntity(PublicationCommentaryModelGet get) {
+        PublicationCommentaryEntity entity = getById(get.getId());
+
         return entity;
     }
 }

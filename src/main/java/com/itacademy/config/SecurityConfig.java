@@ -33,14 +33,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/users/deleteUser").fullyAuthenticated()
                 .antMatchers(HttpMethod.GET, "/users/get-current").fullyAuthenticated()
                 .antMatchers(HttpMethod.GET, "/users/activation/*").permitAll()
-                .antMatchers(HttpMethod.GET, "/users/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/users/get-current").authenticated()
+
                 .antMatchers(HttpMethod.GET, "/userInfo/**").fullyAuthenticated()
                 .antMatchers(HttpMethod.POST, "/userInfo/**").fullyAuthenticated()
+
                 .antMatchers(HttpMethod.GET, "/serviceCenter/**").fullyAuthenticated()
                 .antMatchers(HttpMethod.POST, "/serviceCenter/**").fullyAuthenticated()
+
                 .antMatchers(HttpMethod.GET, "/expert/**").fullyAuthenticated()
                 .antMatchers(HttpMethod.POST, "/expert/**").fullyAuthenticated()
+
+                .antMatchers(HttpMethod.GET, "/post/**").fullyAuthenticated()
+                .antMatchers(HttpMethod.POST, "/post/**").fullyAuthenticated()
+
                 .antMatchers(HttpMethod.POST, "/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/**").hasRole("ADMIN")
                 .anyRequest().permitAll()

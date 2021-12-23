@@ -9,6 +9,5 @@ import java.util.Optional;
 
 public interface PublicationRepository extends JpaRepository<PublicationUsersEntity, Long> {
     Optional<List<PublicationUsersEntity>> findByUserEntity(UserEntity userEntity);
-
     Optional<PublicationUsersEntity> findByPostValue(String postValues);
 }

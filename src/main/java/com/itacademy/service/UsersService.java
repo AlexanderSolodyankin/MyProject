@@ -1,6 +1,7 @@
 package com.itacademy.service;
 
 import com.itacademy.entity.UserEntity;
+import com.itacademy.entity.UserRole;
 import com.itacademy.model.users_models.UserModelPost;
 import com.itacademy.model.users_models.UserAuthModelPost;
 import com.itacademy.model.users_models.UserModelGet;
@@ -33,6 +34,10 @@ public interface UsersService {
     List<UserModelGet> convertUserEntityToUserModel(List<UserEntity> userEntity);
 
     UserEntity convertModelToEntity(UserModelPost userModelPost);
+
+    UserRole getRoleByUser(UserEntity entity);
+
+    Boolean isAdmin(UserEntity entity);
 
 
 }

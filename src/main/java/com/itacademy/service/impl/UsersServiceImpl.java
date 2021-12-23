@@ -55,9 +55,10 @@ public class UsersServiceImpl implements UsersService {
         userRole.setUserEntity(userEntity);
         roleRepository.save(userRole);
 
-        String messege = "Куват принимай ссылку из моего кода https://driverroom.herokuapp.com/users/activation/" + activationCode;
+        String messege = "https://driverroom.herokuapp.com/users/activation/" + activationCode;
         mailService.send(userEntity.getEmail(), userEntity.getLogin(), messege);
         return userEntity;
+
     }
 
     @Override
@@ -105,9 +106,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public UserEntity deleteUser(UserEntity userEntity) {
-        UserRole userRoleDelete = roleRepository.findByUserEntity(userEntity).orElseThrow(
-                () -> new IllegalArgumentException(" Такого пользователя не существует! ")
-        );
+        UserRole userRoleDelete = roleRepository.findByUserEntity(userEntity).orElse(null);
         if (userRoleDelete == null) {
             try {
                 throw new IllegalAccessException("Такой роли не существует");
@@ -165,6 +164,19 @@ public class UsersServiceImpl implements UsersService {
         userEntity.setEmail(userModelPost.getEmail());
         userEntity.setPassword(userModelPost.getPassword());
         return userEntity;
+    }
+
+    @Override
+    public UserRole getRoleByUser(UserEntity entity) {
+        return roleRepository.findByUserEntity(entity).orElse(null);
+    }
+
+    @Override
+    public Boolean isAdmin(UserEntity entity) {
+        UserRole role = getRoleByUser(entity);
+
+        if(role.getRoleName().equals("ROLE_ADMIN")) return true;
+        else return false;
     }
 
 

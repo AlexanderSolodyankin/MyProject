@@ -29,5 +29,7 @@ public interface PublicationService {
 
     PublicationUsersEntity convertModelToEntity(PublicationModelPost post);
 
+    PublicationUsersEntity convertModelToEntity(PublicationModelGet post);
+
 
 }
