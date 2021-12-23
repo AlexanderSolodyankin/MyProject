@@ -167,6 +167,11 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
+    public UserEntity convertModelToEntity(UserModelGet getUser) {
+        return getByUser(getUser.getId());
+    }
+
+    @Override
     public UserRole getRoleByUser(UserEntity entity) {
         return roleRepository.findByUserEntity(entity).orElse(null);
     }

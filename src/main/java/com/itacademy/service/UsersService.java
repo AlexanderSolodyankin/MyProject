@@ -35,6 +35,8 @@ public interface UsersService {
 
     UserEntity convertModelToEntity(UserModelPost userModelPost);
 
+    UserEntity convertModelToEntity(UserModelGet getUser);
+
     UserRole getRoleByUser(UserEntity entity);
 
     Boolean isAdmin(UserEntity entity);

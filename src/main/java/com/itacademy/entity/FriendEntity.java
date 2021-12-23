@@ -6,26 +6,23 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "publication")
+@Table(name = "friend")
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class PublicationUsersEntity {
+public class FriendEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private LocalDateTime createData;
-    private String postValue;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
 
-    @PrePersist
-    public void prePersistCreateData() {
-        this.createData = LocalDateTime.now();
-    }
+    @ManyToOne
+    @JoinColumn(name = "friend_zone_id",unique = true)
+    private FriendZoneEntity friendZoneEntity;
+
 }
