@@ -1,10 +1,9 @@
 package com.itacademy.service.impl;
 
 import com.itacademy.entity.ExpertEntity;
-import com.itacademy.entity.ServiceCenterEntity;
 import com.itacademy.entity.UserEntity;
-import com.itacademy.model.expertModel.ExpertModel;
-import com.itacademy.model.serviceCenterModel.ServiceCenterModel;
+import com.itacademy.model.expert_model.ExpertModelGet;
+import com.itacademy.model.expert_model.ExpertModelPost;
 import com.itacademy.repository.ExpertRepository;
 import com.itacademy.service.ExpertService;
 import com.itacademy.service.UsersService;
@@ -27,49 +26,58 @@ public class ExpertServiceImpl implements ExpertService {
     }
 
     @Override
-    public ExpertEntity saveExpert(ExpertEntity expertEntity) {
-        System.out.println("перед токеном " +expertEntity);
+    public ExpertEntity saveExpert(ExpertModelPost expertModelPost) {
+        ExpertEntity expertEntity = convertModelToEntity(expertModelPost);
         expertEntity.setUserEntity(usersService.getCurrentUser());
         return expertRepository.save(expertEntity);
     }
 
     @Override
-    public ExpertEntity getExpert(UserEntity userEntity) {
+    public List<ExpertEntity> getExpert(UserEntity userEntity) {
         return expertRepository.findByUserEntity(userEntity).orElseThrow(
                 () -> new IllegalArgumentException(" Эксперта закрепленного по данному пользователю не найдено! ")
         );
 
     }
+
     @Override
     public ExpertEntity getExpert(Long id) {
-        return  expertRepository.findById(id).orElseThrow(
+        return expertRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException(" Эксперта по данному ID номеру не существует! ")
         );
     }
 
     @Override
-    public ExpertEntity delete(UserEntity userEntity) {
-        ExpertEntity expertEntityDelete = getExpert(userEntity);
+    public ExpertEntity delete(Long id) {
+        ExpertEntity expertEntityDelete = expertRepository.getById(id);
         expertRepository.delete(expertEntityDelete);
         return expertEntityDelete;
     }
 
     @Override
-    public ExpertModel convertEntityToModel(ExpertEntity expertEntity) {
-        ExpertModel expertModel = new ExpertModel();
-        expertModel.setId(expertEntity.getId());
-        expertModel.setName(expertEntity.getName());
-        expertModel.setExpertInfo(expertEntity.getExpertInfo());
-        expertModel.setUserModel(usersService.convertUserEntityToUserModel(expertEntity.getUserEntity()));
-        return expertModel;
+    public ExpertModelGet convertEntityToModel(ExpertEntity expertEntity) {
+        ExpertModelGet expertModelGet = new ExpertModelGet();
+        expertModelGet.setId(expertEntity.getId());
+        expertModelGet.setName(expertEntity.getName());
+        expertModelGet.setExpertInfo(expertEntity.getExpertInfo());
+        expertModelGet.setUserModelGet(usersService.convertUserEntityToUserModel(expertEntity.getUserEntity()));
+        return expertModelGet;
     }
 
     @Override
-    public List<ExpertModel> convertEntityToModelList(List<ExpertEntity> expertEntityList) {
-            List<ExpertModel> expertModelList = new ArrayList<>();
-            for(ExpertEntity expertEntity : expertEntityList){
-                expertModelList.add(convertEntityToModel(expertEntity));
-            }
-        return expertModelList;
+    public List<ExpertModelGet> convertEntityToModelList(List<ExpertEntity> expertEntityList) {
+        List<ExpertModelGet> expertModelGetList = new ArrayList<>();
+        for (ExpertEntity expertEntity : expertEntityList) {
+            expertModelGetList.add(convertEntityToModel(expertEntity));
+        }
+        return expertModelGetList;
+    }
+
+    @Override
+    public ExpertEntity convertModelToEntity(ExpertModelPost expertModelPost) {
+        ExpertEntity expertEntity = new ExpertEntity();
+        expertEntity.setName(expertModelPost.getName());
+        expertEntity.setExpertInfo(expertModelPost.getExpertInfo());
+        return expertEntity;
     }
 }

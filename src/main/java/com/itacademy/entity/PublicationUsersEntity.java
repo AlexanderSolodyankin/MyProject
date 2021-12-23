@@ -6,13 +6,13 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "post_user")
+@Table(name = "publication")
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class PostUsers {
+public class PublicationUsersEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,7 +24,7 @@ public class PostUsers {
     private UserEntity userEntity;
 
     @PrePersist
-    public void prePersistCreateData(){
+    public void prePersistCreateData() {
         this.createData = LocalDateTime.now();
     }
 }

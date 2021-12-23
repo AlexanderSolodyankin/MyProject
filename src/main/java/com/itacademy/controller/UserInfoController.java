@@ -1,7 +1,7 @@
 package com.itacademy.controller;
 
-import com.itacademy.entity.UserInfoEntity;
-import com.itacademy.model.usersModels.UserInfoModel;
+import com.itacademy.model.users_models.UserInfoModelGet;
+import com.itacademy.model.users_models.UserInfoModelPost;
 import com.itacademy.service.UserInfoService;
 import com.itacademy.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,29 +19,30 @@ public class UserInfoController {
     private UsersService usersService;
 
     @GetMapping("/getAll")
-    public List<UserInfoModel> getAll(){
+    public List<UserInfoModelGet> getAll() {
         return userInfoService.convertUserEntityToUserModelList(userInfoService.getAllUsersInfo());
     }
 
     @PostMapping("/setUserInfo")
-    public UserInfoModel setUserInfo(@RequestBody UserInfoEntity userInfoEntity) throws IllegalAccessException {
-        return userInfoService.convertUserEntityToUserModel(userInfoService.save(userInfoEntity));
+    public UserInfoModelGet setUserInfo(@RequestBody UserInfoModelPost userInfoModelPost) throws IllegalAccessException {
+        return userInfoService.convertUserEntityToUserModel(userInfoService.save(userInfoModelPost));
     }
+
     @DeleteMapping("/deleteUserInfo")
-    public UserInfoModel deleteUserInfo(){
+    public UserInfoModelGet deleteUserInfo() {
         return userInfoService.convertUserEntityToUserModel(
                 userInfoService.delete(usersService.getCurrentUser()));
     }
 
     @GetMapping("/getUserInfoByUser")
-    public UserInfoModel getUserInfo(){
+    public UserInfoModelGet getUserInfo() {
         return userInfoService.convertUserEntityToUserModel(
                 userInfoService.getUserInfo(usersService.getCurrentUser()));
     }
 
 
     @GetMapping("/getUserInfoById/{id}")
-    public UserInfoModel getUserInfoById(@PathVariable Long id){
+    public UserInfoModelGet getUserInfoById(@PathVariable Long id) {
         return userInfoService.convertUserEntityToUserModel(userInfoService.getUserInfo(id));
     }
 

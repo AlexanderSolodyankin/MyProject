@@ -2,7 +2,8 @@ package com.itacademy.service.impl;
 
 import com.itacademy.entity.ServiceCenterEntity;
 import com.itacademy.entity.UserEntity;
-import com.itacademy.model.serviceCenterModel.ServiceCenterModel;
+import com.itacademy.model.service_center_model.GetServiceCenterModel;
+import com.itacademy.model.service_center_model.PostServiceCenterModel;
 import com.itacademy.repository.ServiceCenterReposit;
 import com.itacademy.service.ServiceCenterService;
 import com.itacademy.service.UsersService;
@@ -27,53 +28,63 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
     }
 
     @Override
-    public ServiceCenterEntity save(ServiceCenterEntity serviceCenterEntity) {
+    public ServiceCenterEntity save(PostServiceCenterModel postServiceCenterModel) {
+        ServiceCenterEntity serviceCenterEntity = convertModelToEntity(postServiceCenterModel);
         serviceCenterEntity.setUserEntity(usersService.getCurrentUser());
         return serviceCenterReposit.save(serviceCenterEntity);
     }
 
     @Override
-    public ServiceCenterEntity delete(UserEntity userEntity) {
-       ServiceCenterEntity serviceCenterEntity =  getServiceCenter(userEntity);
-       serviceCenterReposit.delete(serviceCenterEntity);
-       return serviceCenterEntity;
+    public ServiceCenterEntity delete(Long id) {
+        ServiceCenterEntity entity = serviceCenterReposit.getById(id);
+        if(!entity.getUserEntity().equals(usersService.getCurrentUser())){
+            throw  new IllegalArgumentException("Нельзя удолять чужую публикацию");
+        }
+        serviceCenterReposit.delete(entity);
+
+        return entity;
 
     }
 
     @Override
-    public ServiceCenterEntity getServiceCenter(UserEntity userEntity) {
-        return serviceCenterReposit.findByUserEntity(userEntity).orElseThrow(
-                () -> new IllegalArgumentException(" Сервис-Центра закрепленного по данному пользователю отсутствует! ")
-        );
-
-    }
+    public List<ServiceCenterEntity> getServiceCenter(UserEntity userEntity) {
+        return serviceCenterReposit.findByUserEntity(userEntity).orElse(null);    }
 
     @Override
     public ServiceCenterEntity getServiceCenter(Long id) {
         return serviceCenterReposit.findById(id).orElseThrow(
                 () -> new IllegalArgumentException(" Сервис-Центра под таким ID номером не существует! ")
-                );
+        );
     }
 
     @Override
-    public ServiceCenterModel convertServiceEntityToServiceModel(ServiceCenterEntity serviceCenterEntity) {
-        ServiceCenterModel serviceCenterModel = new ServiceCenterModel();
-        serviceCenterModel.setId(serviceCenterEntity.getId());
-        serviceCenterModel.setName(serviceCenterEntity.getName());
-        serviceCenterModel.setAddress(serviceCenterEntity.getAddress());
-        serviceCenterModel.setPhone(serviceCenterEntity.getPhone());
-        serviceCenterModel.setUserModel(
+    public GetServiceCenterModel convertServiceEntityToServiceModel(ServiceCenterEntity serviceCenterEntity) {
+        GetServiceCenterModel getServiceCenterModel = new GetServiceCenterModel();
+        getServiceCenterModel.setId(serviceCenterEntity.getId());
+        getServiceCenterModel.setName(serviceCenterEntity.getName());
+        getServiceCenterModel.setAddress(serviceCenterEntity.getAddress());
+        getServiceCenterModel.setPhone(serviceCenterEntity.getPhone());
+        getServiceCenterModel.setUserModelGet(
                 usersService.convertUserEntityToUserModel(serviceCenterEntity.getUserEntity()));
-        return serviceCenterModel;
+        return getServiceCenterModel;
     }
 
     @Override
-    public List<ServiceCenterModel> convertServiceEntityToServiceModelList(
+    public List<GetServiceCenterModel> convertServiceEntityToServiceModelList(
             List<ServiceCenterEntity> serviceCenterEntityList) {
-        List<ServiceCenterModel> serviceCenterModelList = new ArrayList<>();
-        for(ServiceCenterEntity serviceCenterEntity : serviceCenterEntityList){
-            serviceCenterModelList.add(convertServiceEntityToServiceModel(serviceCenterEntity));
+        List<GetServiceCenterModel> getServiceCenterModelList = new ArrayList<>();
+        for (ServiceCenterEntity serviceCenterEntity : serviceCenterEntityList) {
+            getServiceCenterModelList.add(convertServiceEntityToServiceModel(serviceCenterEntity));
         }
-        return serviceCenterModelList;
+        return getServiceCenterModelList;
+    }
+
+    @Override
+    public ServiceCenterEntity convertModelToEntity(PostServiceCenterModel postServiceCenterModel) {
+        ServiceCenterEntity serviceCenterEntity = new ServiceCenterEntity();
+        serviceCenterEntity.setName(postServiceCenterModel.getName());
+        serviceCenterEntity.setAddress(postServiceCenterModel.getAddress());
+        serviceCenterEntity.setPhone(postServiceCenterModel.getPhone());
+        return serviceCenterEntity;
     }
 }

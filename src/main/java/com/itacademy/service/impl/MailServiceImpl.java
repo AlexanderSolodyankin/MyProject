@@ -1,6 +1,7 @@
 package com.itacademy.service.impl;
 
 import com.itacademy.service.MailService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
 
+@Slf4j
 @Service
 public class MailServiceImpl implements MailService {
 
@@ -31,7 +33,7 @@ public class MailServiceImpl implements MailService {
             javaMailSender.send(message);
             return true;
         } catch (Exception e) {
-            System.out.println("MailService.send: " + e.getMessage());
+            log.error("MailService.send: " + e.getMessage());
             return false;
         }
     }

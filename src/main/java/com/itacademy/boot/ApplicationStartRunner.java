@@ -3,9 +3,6 @@ package com.itacademy.boot;
 
 import com.itacademy.entity.*;
 import com.itacademy.repository.*;
-import com.itacademy.service.ExpertService;
-import com.itacademy.service.ServiceCenterService;
-import com.itacademy.service.UserInfoService;
 import com.itacademy.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -34,6 +31,8 @@ public class ApplicationStartRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        // Тестовая проверка приложение с авто заполнением
+
         if (usersService.getByUser("admin") == null) {
             UserEntity admin = new UserEntity();
             admin.setLogin("admin");
@@ -46,9 +45,8 @@ public class ApplicationStartRunner implements CommandLineRunner {
             userRole.setRoleName("ROLE_ADMIN");
             userRole.setUserEntity(admin);
             roleRepository.save(userRole);
-
+//            setDataBase(9);
         }
-
 
 
     }
@@ -93,8 +91,6 @@ public class ApplicationStartRunner implements CommandLineRunner {
             expertEntity.setExpertInfo("Expert Information " + i);
             expertEntity.setUserEntity(userEntity);
             expertService.save(expertEntity);
-
-
         }
     }
 }

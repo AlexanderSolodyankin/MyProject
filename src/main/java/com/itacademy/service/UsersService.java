@@ -1,23 +1,43 @@
 package com.itacademy.service;
 
 import com.itacademy.entity.UserEntity;
-import com.itacademy.model.usersModels.UserAuthModel;
-import com.itacademy.model.usersModels.UserModel;
-import com.itacademy.model.usersModels.UserUpdateModelPassword;
+import com.itacademy.entity.UserRole;
+import com.itacademy.model.users_models.UserModelPost;
+import com.itacademy.model.users_models.UserAuthModelPost;
+import com.itacademy.model.users_models.UserModelGet;
+import com.itacademy.model.users_models.UserUpdateModelPassword;
 
 import java.util.List;
 
 public interface UsersService {
 
-    UserEntity newUser(UserEntity user);
+    UserEntity newUser(UserModelPost userModelPost);
+
     List<UserEntity> getAllUsers();
+
     UserEntity getByUser(String login);
+
     UserEntity getByUser(Long id);
-    String getAuthorizedToken(UserAuthModel userAuthModel) throws IllegalAccessException;
+
+    String getAuthorizedToken(UserAuthModelPost userAuthModelPost) throws IllegalAccessException;
+
     UserEntity deleteUser(UserEntity userEntity);
+
     UserEntity updatePassword(UserUpdateModelPassword userNewPassword) throws IllegalAccessException;
+
     UserEntity getCurrentUser();
-    UserEntity activationUser(String activation);
-    UserModel convertUserEntityToUserModel(UserEntity userEntity);
-    List<UserModel> convertUserEntityToUserModel(List<UserEntity> userEntity);
+
+    String activationUser(String activation);
+
+    UserModelGet convertUserEntityToUserModel(UserEntity userEntity);
+
+    List<UserModelGet> convertUserEntityToUserModel(List<UserEntity> userEntity);
+
+    UserEntity convertModelToEntity(UserModelPost userModelPost);
+
+    UserRole getRoleByUser(UserEntity entity);
+
+    Boolean isAdmin(UserEntity entity);
+
+
 }

@@ -1,12 +1,8 @@
-package com.itacademy.model.usersModels;
+package com.itacademy.model.users_models;
 
 import lombok.*;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@ToString
 public class UserUpdateModelPassword {
     private String OldPassword;
     private String newPassword;

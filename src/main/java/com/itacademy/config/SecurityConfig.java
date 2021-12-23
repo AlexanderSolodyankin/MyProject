@@ -21,29 +21,39 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
         http
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/users/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/users/update").fullyAuthenticated()
-                .antMatchers(HttpMethod.DELETE,"/users/deleteUser").fullyAuthenticated()
-                .antMatchers(HttpMethod.GET,"/users/get-current").fullyAuthenticated()
-                .antMatchers(HttpMethod.GET,"/users/activation/*").permitAll()
-                .antMatchers(HttpMethod.GET,"/users/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET,"/users/get-current").authenticated()
+                .antMatchers(HttpMethod.POST, "/users/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/users/update").fullyAuthenticated()
+                .antMatchers(HttpMethod.DELETE, "/users/deleteUser").fullyAuthenticated()
+                .antMatchers(HttpMethod.GET, "/users/get-current").fullyAuthenticated()
+                .antMatchers(HttpMethod.GET, "/users/activation/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/users/get-current").authenticated()
+
                 .antMatchers(HttpMethod.GET, "/userInfo/**").fullyAuthenticated()
                 .antMatchers(HttpMethod.POST, "/userInfo/**").fullyAuthenticated()
+
                 .antMatchers(HttpMethod.GET, "/serviceCenter/**").fullyAuthenticated()
                 .antMatchers(HttpMethod.POST, "/serviceCenter/**").fullyAuthenticated()
+
                 .antMatchers(HttpMethod.GET, "/expert/**").fullyAuthenticated()
                 .antMatchers(HttpMethod.POST, "/expert/**").fullyAuthenticated()
+
+                .antMatchers(HttpMethod.GET, "/post/**").fullyAuthenticated()
+                .antMatchers(HttpMethod.POST, "/post/**").fullyAuthenticated()
+
+                .antMatchers(HttpMethod.POST, "/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/**").hasRole("ADMIN")
                 .anyRequest().permitAll()
                 .and()
                 .httpBasic();
+
+
     }
 
     @Override
@@ -52,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .dataSource(dataSource)
                 .usersByUsernameQuery("select login, password, is_active from users where login=?")
                 .authoritiesByUsernameQuery
-    ("select u.login, ur.role_name as role from user_role ur inner join users u on ur.user_id = u.id where u.login = ? and u.is_active = 1");
+                        ("select u.login, ur.role_name as role from user_role ur inner join users u on ur.user_id = u.id where u.login = ? and u.is_active = 1");
     }
 
     @Bean

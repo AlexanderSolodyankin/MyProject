@@ -1,11 +1,9 @@
-package com.itacademy.model.usersModels;
+package com.itacademy.model.users_models;
 
 import lombok.Data;
-import lombok.ToString;
 
 @Data
-@ToString
-public class UserInfoModel {
+public class UserInfoModelGet {
     private Long id;
     private String name;
     private String serName;
@@ -15,5 +13,5 @@ public class UserInfoModel {
     private String city;
     private String car;
     private boolean gender;
-    private UserModel userModel;
+    private UserModelGet userModelGet;
 }

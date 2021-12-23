@@ -28,7 +28,7 @@ public class UserEntity {
     private String activationCode;
 
     @PrePersist
-    public void prePersistCreateData(){
+    public void prePersistCreateData() {
         this.createDate = LocalDateTime.now();
     }
 

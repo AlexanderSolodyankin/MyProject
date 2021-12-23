@@ -2,7 +2,8 @@ package com.itacademy.service.impl;
 
 import com.itacademy.entity.UserInfoEntity;
 import com.itacademy.entity.UserEntity;
-import com.itacademy.model.usersModels.UserInfoModel;
+import com.itacademy.model.users_models.UserInfoModelGet;
+import com.itacademy.model.users_models.UserInfoModelPost;
 import com.itacademy.repository.UserInfoRepository;
 import com.itacademy.service.UserInfoService;
 import com.itacademy.service.UsersService;
@@ -26,15 +27,13 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public UserInfoEntity save(UserInfoEntity userInfoEntity) throws IllegalAccessException {
-        UserEntity userSaveInfo = usersService.getCurrentUser();
-        userInfoEntity.setUserEntity(userSaveInfo);
-        if(userSaveInfo == null) throw new IllegalAccessException(
+    public UserInfoEntity save(UserInfoModelPost userInfoModelPost) throws IllegalAccessException {
+        UserInfoEntity userInfoEntity = convertModelToEntity(userInfoModelPost);
+        userInfoEntity.setUserEntity(usersService.getCurrentUser());
+        if (userInfoEntity.getUserEntity() == null) throw new IllegalAccessException(
                 "Нельзя сохранить информацию о пользователе если не существует самого пользователя");
-        userInfoEntity.setUserEntity(userSaveInfo);
         return userInfoRepository.save(userInfoEntity);
     }
-
 
 
     @Override
@@ -50,6 +49,7 @@ public class UserInfoServiceImpl implements UserInfoService {
                 () -> new IllegalArgumentException("Информации по Пользователю отсутствует")
         );
     }
+
     @Override
     public UserInfoEntity getUserInfo(Long id) {
         return userInfoRepository.findById(id).orElseThrow(
@@ -58,27 +58,41 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public UserInfoModel convertUserEntityToUserModel(UserInfoEntity userInfoEntity) {
-        UserInfoModel userInfoModel = new UserInfoModel();
-        userInfoModel.setId(userInfoEntity.getId());
-        userInfoModel.setUserModel(usersService.convertUserEntityToUserModel(userInfoEntity.getUserEntity()));
-        userInfoModel.setName(userInfoEntity.getName());
-        userInfoModel.setSerName(userInfoEntity.getSerName());
-        userInfoModel.setPatronymic(userInfoEntity.getPatronymic());
-        userInfoModel.setPhone(userInfoEntity.getPhone());
-        userInfoModel.setCountry(userInfoEntity.getCountry());
-        userInfoModel.setCity(userInfoEntity.getCity());
-        userInfoModel.setCar(userInfoEntity.getCar());
-        userInfoModel.setGender(userInfoModel.isGender());
-        return userInfoModel;
+    public UserInfoModelGet convertUserEntityToUserModel(UserInfoEntity userInfoEntity) {
+        UserInfoModelGet userInfoModelGet = new UserInfoModelGet();
+        userInfoModelGet.setId(userInfoEntity.getId());
+        userInfoModelGet.setUserModelGet(usersService.convertUserEntityToUserModel(userInfoEntity.getUserEntity()));
+        userInfoModelGet.setName(userInfoEntity.getName());
+        userInfoModelGet.setSerName(userInfoEntity.getSerName());
+        userInfoModelGet.setPatronymic(userInfoEntity.getPatronymic());
+        userInfoModelGet.setPhone(userInfoEntity.getPhone());
+        userInfoModelGet.setCountry(userInfoEntity.getCountry());
+        userInfoModelGet.setCity(userInfoEntity.getCity());
+        userInfoModelGet.setCar(userInfoEntity.getCar());
+        userInfoModelGet.setGender(userInfoEntity.isGender());
+        return userInfoModelGet;
     }
 
     @Override
-    public List<UserInfoModel> convertUserEntityToUserModelList(List<UserInfoEntity> userInfoEntity) {
-        List<UserInfoModel> userInfoModelList = new ArrayList<>();
-        for(UserInfoEntity userInfo : userInfoEntity){
-            userInfoModelList.add(convertUserEntityToUserModel(userInfo));
+    public List<UserInfoModelGet> convertUserEntityToUserModelList(List<UserInfoEntity> userInfoEntity) {
+        List<UserInfoModelGet> userInfoModelGetList = new ArrayList<>();
+        for (UserInfoEntity userInfo : userInfoEntity) {
+            userInfoModelGetList.add(convertUserEntityToUserModel(userInfo));
         }
-        return userInfoModelList;
+        return userInfoModelGetList;
+    }
+
+    @Override
+    public UserInfoEntity convertModelToEntity(UserInfoModelPost userInfoModelPost) {
+        UserInfoEntity userInfoEntity = new UserInfoEntity();
+        userInfoEntity.setName(userInfoModelPost.getName());
+        userInfoEntity.setSerName(userInfoModelPost.getSerName());
+        userInfoEntity.setPatronymic(userInfoModelPost.getPatronymic());
+        userInfoEntity.setPhone(userInfoModelPost.getPhone());
+        userInfoEntity.setCountry(userInfoModelPost.getCountry());
+        userInfoEntity.setCity(userInfoModelPost.getCity());
+        userInfoEntity.setCar(userInfoModelPost.getCar());
+        userInfoEntity.setGender(userInfoModelPost.isGender());
+        return userInfoEntity;
     }
 }
