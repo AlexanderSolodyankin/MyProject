@@ -12,11 +12,11 @@ public interface ExpertService {
 
     ExpertEntity saveExpert(ExpertModelPost expertModelPost);
 
-    ExpertEntity getExpert(UserEntity userEntity);
+    List<ExpertEntity> getExpert(UserEntity userEntity);
 
     ExpertEntity getExpert(Long id);
 
-    ExpertEntity delete(UserEntity userEntity);
+    ExpertEntity delete(Long id);
 
     ExpertModelGet convertEntityToModel(ExpertEntity expertEntity);
 

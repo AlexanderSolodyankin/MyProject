@@ -28,8 +28,8 @@ public class ExpertController {
     }
 
     @GetMapping("/getExpert")
-    public ExpertModelGet getExpert() {
-        return expertService.convertEntityToModel(expertService.getExpert(usersService.getCurrentUser()));
+    public List<ExpertModelGet> getExpert() {
+        return expertService.convertEntityToModelList(expertService.getExpert(usersService.getCurrentUser()));
     }
 
     @GetMapping("/getExpert/{id}")
@@ -37,8 +37,8 @@ public class ExpertController {
         return expertService.convertEntityToModel(expertService.getExpert(id));
     }
 
-    @DeleteMapping("/deleteExpert")
-    public ExpertModelGet deleteExpert() {
-        return expertService.convertEntityToModel(expertService.delete(usersService.getCurrentUser()));
+    @DeleteMapping("/deleteExpert/{id}")
+    public ExpertModelGet deleteExpert(@PathVariable Long id) {
+        return expertService.convertEntityToModel(expertService.delete(id));
     }
 }

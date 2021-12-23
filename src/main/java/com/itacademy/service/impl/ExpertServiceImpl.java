@@ -33,7 +33,7 @@ public class ExpertServiceImpl implements ExpertService {
     }
 
     @Override
-    public ExpertEntity getExpert(UserEntity userEntity) {
+    public List<ExpertEntity> getExpert(UserEntity userEntity) {
         return expertRepository.findByUserEntity(userEntity).orElseThrow(
                 () -> new IllegalArgumentException(" Эксперта закрепленного по данному пользователю не найдено! ")
         );
@@ -48,8 +48,8 @@ public class ExpertServiceImpl implements ExpertService {
     }
 
     @Override
-    public ExpertEntity delete(UserEntity userEntity) {
-        ExpertEntity expertEntityDelete = getExpert(userEntity);
+    public ExpertEntity delete(Long id) {
+        ExpertEntity expertEntityDelete = expertRepository.getById(id);
         expertRepository.delete(expertEntityDelete);
         return expertEntityDelete;
     }
