@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "publication")
@@ -19,6 +20,7 @@ public class PublicationUsersEntity {
 
     private LocalDateTime createData;
     private String postValue;
+
 
     @ManyToOne
     @JoinColumn(name = "user_id")

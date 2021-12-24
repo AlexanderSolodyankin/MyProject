@@ -22,7 +22,7 @@ public class FriendEntity {
     private UserEntity userEntity;
 
     @ManyToOne
-    @JoinColumn(name = "friend_zone_id",unique = true)
+    @JoinColumn(name = "friend_zone_id", unique = true)
     private FriendZoneEntity friendZoneEntity;
 
 }

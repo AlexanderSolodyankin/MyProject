@@ -51,9 +51,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/post/**").fullyAuthenticated()
                 .antMatchers(HttpMethod.DELETE, "/api/post/**").fullyAuthenticated()
 
-//                .antMatchers(HttpMethod.GET, "/api/friends/**").fullyAuthenticated()
-//                .antMatchers(HttpMethod.POST, "/api/friends/**").fullyAuthenticated()
-//                .antMatchers(HttpMethod.DELETE, "/api/friends/**").fullyAuthenticated()
+                .antMatchers(HttpMethod.GET, "/api/friend/**").fullyAuthenticated()
+                .antMatchers(HttpMethod.POST, "/api/friend/**").fullyAuthenticated()
+                .antMatchers(HttpMethod.DELETE, "/api/friend/**").fullyAuthenticated()
 
                 .antMatchers(HttpMethod.POST, "/api/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/api/**").hasRole("ADMIN")

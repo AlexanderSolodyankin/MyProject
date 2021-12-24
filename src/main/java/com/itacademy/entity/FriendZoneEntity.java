@@ -17,6 +17,6 @@ public class FriendZoneEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id",unique = true)
+    @JoinColumn(name = "user_id", unique = true)
     private UserEntity userEntity;
 }

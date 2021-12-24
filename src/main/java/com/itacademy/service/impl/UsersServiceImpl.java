@@ -1,5 +1,6 @@
 package com.itacademy.service.impl;
 
+import com.itacademy.entity.FriendZoneEntity;
 import com.itacademy.entity.UserEntity;
 import com.itacademy.entity.UserRole;
 import com.itacademy.model.users_models.UserModelPost;
@@ -8,6 +9,7 @@ import com.itacademy.model.users_models.UserModelGet;
 import com.itacademy.model.users_models.UserUpdateModelPassword;
 import com.itacademy.repository.RoleRepository;
 import com.itacademy.repository.UsersRepository;
+import com.itacademy.service.FriendZoneService;
 import com.itacademy.service.MailService;
 import com.itacademy.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,8 @@ public class UsersServiceImpl implements UsersService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private MailService mailService;
+    @Autowired
+    private FriendZoneService friendZoneService;
 
 
     @Override
@@ -135,6 +139,11 @@ public class UsersServiceImpl implements UsersService {
             userEntity.setIsActive(1L);
             userEntity.setActivationCode(null);
         }
+
+        FriendZoneEntity friendZoneEntity = new FriendZoneEntity();
+        friendZoneEntity.setUserEntity(userEntity);
+        friendZoneService.newFriendZone(friendZoneEntity);
+
         usersRepository.save(userEntity);
         return "Basic " + activation;
     }
