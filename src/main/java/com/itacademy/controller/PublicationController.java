@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/post")
+@RequestMapping("/api/post")
 public class PublicationController {
     @Autowired
     private PublicationService publicationService;
@@ -63,7 +63,10 @@ public class PublicationController {
     public PublicationModelGet deletePost(@PathVariable Long id){
 
         return publicationService.convertEntityToModel(publicationService.deletePost(id));
-
+    }
+    @GetMapping
+    public List<PublicationModelGet> publicationForUser(){
+        return publicationService.convertEntityToModelList(publicationService.newsFeed());
     }
 
 }

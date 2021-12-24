@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/expert")
+@RequestMapping("/api/expert")
 public class ExpertController {
     @Autowired
     private ExpertService expertService;

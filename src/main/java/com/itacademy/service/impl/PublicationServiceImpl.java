@@ -1,5 +1,7 @@
 package com.itacademy.service.impl;
 
+import com.itacademy.entity.FriendEntity;
+import com.itacademy.entity.FriendZoneEntity;
 import com.itacademy.entity.PublicationUsersEntity;
 import com.itacademy.entity.UserEntity;
 import com.itacademy.model.post_model.PublicationCommentaryModelGet;
@@ -7,9 +9,7 @@ import com.itacademy.model.post_model.PublicationModelGet;
 import com.itacademy.model.post_model.PublicationModelPost;
 import com.itacademy.model.users_models.UserModelGet;
 import com.itacademy.repository.PublicationRepository;
-import com.itacademy.service.PublicationCommentaryService;
-import com.itacademy.service.PublicationService;
-import com.itacademy.service.UsersService;
+import com.itacademy.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +26,12 @@ public class PublicationServiceImpl implements PublicationService {
 
     @Autowired
     private PublicationCommentaryService publicationCommentaryService;
+
+    @Autowired
+    private FriendZoneService zoneService;
+
+    @Autowired
+    private FriendService friendService;
 
     @Override
     public List<PublicationUsersEntity> getAll() {
@@ -130,4 +136,49 @@ public class PublicationServiceImpl implements PublicationService {
         PublicationUsersEntity entity = getById(post.getId());
         return entity;
     }
+
+
+    @Override
+    public List<PublicationUsersEntity> newsFeed(){
+
+        // Фильтрация публикаций для юзера и вывод последних публикаций друзей
+
+        UserEntity user = usersService.getCurrentUser();
+        if(user == null){
+            return getAll();
+        }
+        List<PublicationUsersEntity> newsFeed = new ArrayList<>();
+        FriendZoneEntity friendZone = zoneService.getFriendZoneByUser(user);
+        List<FriendEntity> friendEntityList = friendService.getByFriendZoneEntity(friendZone);
+
+        for (int i = 0; i < 5 ; i++) {
+            for(FriendEntity friend : friendEntityList) {
+                List<PublicationUsersEntity> listFriends = getPostUserList(friend.getUserEntity());
+                if(listFriends != null) {
+                    if (listFriends.size() > 5) {
+                        newsFeed.add(listFriends.get((listFriends.size() - 1) - i));
+                    } else {
+                        if (i < listFriends.size() - 1) {
+                            newsFeed.add(listFriends.get((listFriends.size() - 1) - i));
+                        }
+                    }
+                }
+
+            }
+
+        }
+
+        int count = 50;
+        List<PublicationUsersEntity> allList = getAll();
+
+        for(PublicationUsersEntity publicationUsers : allList){
+
+            newsFeed.add(publicationUsers);
+            if(count == 0) break;
+            count--;
+        }
+
+        return newsFeed;
+    }
+
 }

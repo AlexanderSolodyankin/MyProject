@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "publication")
@@ -16,8 +17,10 @@ public class PublicationUsersEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private LocalDateTime createData;
     private String postValue;
+
 
     @ManyToOne
     @JoinColumn(name = "user_id")
