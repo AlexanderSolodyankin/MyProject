@@ -12,22 +12,16 @@
 					"name": "Get All",
 					"request": {
 						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "admin",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "admin",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic VGVzdFBvc3QxOnF3ZXJ0eQ==",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "localhost:8080/users/getAll",
 							"host": [
@@ -49,7 +43,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"login\":\"login user\",\r\n    \"password\": \"qwerty\",\r\n    \"email\":\"Email user\"\r\n}",
+							"raw": "{\r\n    \"login\":\"TestPost1\",\r\n    \"password\": \"qwerty\",\r\n    \"email\":\"89515014507@mail.ru\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -78,7 +72,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"lolgin\":\"login user\",\r\n    \"password\":\"qwerty\"\r\n}",
+							"raw": "{\r\n    \"login\":\"admin\",\r\n    \"password\":\"admin\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -103,6 +97,21 @@
 				{
 					"name": "Get Current",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "qwerty",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "TestPost1",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -173,7 +182,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8080/users/activation/VGVzdFBvc3QxOnF3ZXJ0eQ==",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"activation",
+								"VGVzdFBvc3QxOnF3ZXJ0eQ=="
+							]
 						}
 					},
 					"response": []
@@ -186,6 +205,21 @@
 				{
 					"name": "Get All",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -206,8 +240,17 @@
 				{
 					"name": "Set user info",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic VGVzdFBvc3QxOnF3ZXJ0eQ==",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"car\": \"string\",\r\n  \"city\": \"string\",\r\n  \"country\": \"string\",\r\n  \"gender\": true,\r\n  \"name\": \"string\",\r\n  \"patronymic\": \"string\",\r\n  \"phone\": \"string\",\r\n  \"serName\": \"string\"\r\n}",
@@ -218,7 +261,16 @@
 							}
 						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8080/userInfo/setUserInfo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"userInfo",
+								"setUserInfo"
+							]
 						}
 					},
 					"response": []
@@ -520,7 +572,276 @@
 		},
 		{
 			"name": "Posters",
-			"item": []
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/post/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"post",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Publications",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic QWxleDpxd2VydHk=",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"postValue\": \"Самая первая публикация на сайте\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/post/newPost",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"post",
+								"newPost"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users publication",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic QWxleDpxd2VydHk=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/post/getAllPostUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"post",
+								"getAllPostUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "new Comentary",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic QWxleDpxd2VydHk=",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"values\": \"Коментарий к первой публикации 3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/post/getPost/1/commit/newCommit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"post",
+								"getPost",
+								"1",
+								"commit",
+								"newCommit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update to Post",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic QWxleDpxd2VydHk=",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 1,\r\n        \"createData\": \"2021-12-23T20:10:30.571341\",\r\n        \"postValue\": \"Здесь был Админ\",\r\n        \"userModelGet\": {\r\n            \"id\": 2,\r\n            \"login\": \"Alex\",\r\n            \"email\": \"89515014507@mail.ru\"\r\n        }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/post/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"post",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete to Post",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/post/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"post",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Friends",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "New Friend",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "Alex1234",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "qwerty",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"login\": \"Alex123\",\r\n    \"email\": \"89515014507@mail.ru\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/friends/newFriend",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"friends",
+								"newFriend"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
