@@ -3,6 +3,8 @@ package com.itacademy.boot;
 
 import com.itacademy.entity.*;
 import com.itacademy.repository.*;
+import com.itacademy.service.FriendService;
+import com.itacademy.service.FriendZoneService;
 import com.itacademy.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -26,6 +28,8 @@ public class ApplicationStartRunner implements CommandLineRunner {
     private RoleRepository roleRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private FriendZoneService friendZoneService;
 
 
     @Override
@@ -45,7 +49,7 @@ public class ApplicationStartRunner implements CommandLineRunner {
             userRole.setRoleName("ROLE_ADMIN");
             userRole.setUserEntity(admin);
             roleRepository.save(userRole);
-//            setDataBase(9);
+            setDataBase(9);
         }
 
 
@@ -56,7 +60,7 @@ public class ApplicationStartRunner implements CommandLineRunner {
             UserEntity userEntity = new UserEntity();
             userEntity.setPassword( passwordEncoder.encode("qwerty"));
             userEntity.setEmail("@mail" + i);
-            userEntity.setLogin("User" + i);
+            userEntity.setLogin("user" + i);
             userEntity.setIsActive(1L);
             userEntity = usersRepository.save(userEntity);
 
@@ -91,6 +95,10 @@ public class ApplicationStartRunner implements CommandLineRunner {
             expertEntity.setExpertInfo("Expert Information " + i);
             expertEntity.setUserEntity(userEntity);
             expertService.save(expertEntity);
+
+            FriendZoneEntity friendZone = new FriendZoneEntity();
+            friendZone.setUserEntity(userEntity);
+            friendZoneService.newFriendZone(friendZone);
         }
     }
 }

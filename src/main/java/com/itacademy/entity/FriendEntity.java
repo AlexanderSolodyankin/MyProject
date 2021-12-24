@@ -3,7 +3,7 @@ package com.itacademy.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+
 
 @Entity
 @Table(name = "friend")
@@ -22,7 +22,7 @@ public class FriendEntity {
     private UserEntity userEntity;
 
     @ManyToOne
-    @JoinColumn(name = "friend_zone_id", unique = true)
+    @JoinColumn(name = "friend_zone_id")
     private FriendZoneEntity friendZoneEntity;
 
 }
