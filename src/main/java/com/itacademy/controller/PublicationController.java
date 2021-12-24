@@ -63,7 +63,10 @@ public class PublicationController {
     public PublicationModelGet deletePost(@PathVariable Long id){
 
         return publicationService.convertEntityToModel(publicationService.deletePost(id));
-
+    }
+    @GetMapping
+    public List<PublicationModelGet> publicationForUser(){
+        return publicationService.convertEntityToModelList(publicationService.newsFeed());
     }
 
 }

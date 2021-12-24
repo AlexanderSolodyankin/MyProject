@@ -3,13 +3,14 @@ package com.itacademy.boot;
 
 import com.itacademy.entity.*;
 import com.itacademy.repository.*;
-import com.itacademy.service.FriendService;
 import com.itacademy.service.FriendZoneService;
 import com.itacademy.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.Random;
 
 @Component
 public class ApplicationStartRunner implements CommandLineRunner {
@@ -30,6 +31,8 @@ public class ApplicationStartRunner implements CommandLineRunner {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private FriendZoneService friendZoneService;
+    @Autowired
+    private PublicationRepository publicationRepository;
 
 
     @Override
@@ -95,6 +98,15 @@ public class ApplicationStartRunner implements CommandLineRunner {
             expertEntity.setExpertInfo("Expert Information " + i);
             expertEntity.setUserEntity(userEntity);
             expertService.save(expertEntity);
+
+            Random ran = new Random();
+            for (int j = 0; j < ran.nextInt(10); j++) {
+                PublicationUsersEntity publicationUsers = new PublicationUsersEntity();
+                publicationUsers.setUserEntity(userEntity);
+                publicationUsers.setPostValue("Публикация от " + userEntity.getLogin());
+                publicationRepository.save(publicationUsers);
+            }
+
 
             FriendZoneEntity friendZone = new FriendZoneEntity();
             friendZone.setUserEntity(userEntity);

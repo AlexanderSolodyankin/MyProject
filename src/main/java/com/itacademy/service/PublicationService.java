@@ -32,4 +32,5 @@ public interface PublicationService {
     PublicationUsersEntity convertModelToEntity(PublicationModelGet post);
 
 
+    List<PublicationUsersEntity> newsFeed();
 }
