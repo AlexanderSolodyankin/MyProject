@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "7d24f37d-d871-4b97-9c27-0e01d947cfcc",
+		"_postman_id": "095bfb4d-0145-484d-ae57-fca762b187d2",
 		"name": "Driver Room local",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -43,7 +43,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"login\":\"TestPost1\",\r\n    \"password\": \"qwerty\",\r\n    \"email\":\"89515014507@mail.ru\"\r\n}",
+							"raw": "{\r\n    \"login\":\"alex3\",\r\n    \"password\": \"qwerty\",\r\n    \"email\":\"89515014507@mail.ru\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -51,13 +51,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/registration",
+							"raw": "http://localhost:8080/api/users/registration",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
 								"users",
 								"registration"
 							]
@@ -72,7 +73,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"login\":\"admin\",\r\n    \"password\":\"admin\"\r\n}",
+							"raw": "{\r\n    \"login\":\"user0\",\r\n    \"password\":\"qwerty\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -80,13 +81,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users/sing-in",
+							"raw": "http://localhost:8080/api/users/sing-in",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
 								"users",
 								"sing-in"
 							]
@@ -98,30 +100,25 @@
 					"name": "Get Current",
 					"request": {
 						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "qwerty",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "TestPost1",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic dXNlcjA6cXdlcnR5",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8080/users/get-current",
+							"raw": "http://localhost:8080/api/users/get-current",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
 								"users",
 								"get-current"
 							]
@@ -182,16 +179,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/activation/VGVzdFBvc3QxOnF3ZXJ0eQ==",
+							"raw": "http://localhost:8080/api/users/activation/YWxleDM6cXdlcnR5",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
 								"users",
 								"activation",
-								"VGVzdFBvc3QxOnF3ZXJ0eQ=="
+								"YWxleDM6cXdlcnR5"
 							]
 						}
 					},
@@ -788,11 +786,74 @@
 			"name": "Friends",
 			"item": [
 				{
-					"name": "Get All",
+					"name": "Get All friend zone",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:8080/api/friend/getAllFriendZone",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"friend",
+								"getAllFriendZone"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Friends",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/friend/getAllFriends",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"friend",
+								"getAllFriends"
+							]
+						}
 					},
 					"response": []
 				},
@@ -804,7 +865,7 @@
 							"basic": [
 								{
 									"key": "username",
-									"value": "Alex1234",
+									"value": "user1",
 									"type": "string"
 								},
 								{
@@ -815,10 +876,17 @@
 							]
 						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWxleDM6cXdlcnR5",
+								"type": "text",
+								"disabled": true
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 2,\r\n    \"login\": \"Alex123\",\r\n    \"email\": \"89515014507@mail.ru\"\r\n}",
+							"raw": "{\r\n    \"id\": 9,\r\n    \"login\": \"user\",\r\n    \"email\": \"89515014507@mail.ru\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -826,7 +894,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/friends/newFriend",
+							"raw": "http://localhost:8080/api/friend/newFriend",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -834,8 +902,98 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"friends",
+								"friend",
 								"newFriend"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all friends by user",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"login\": \"user0\",\r\n    \"email\": \"@mail0\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/friend/getAllFriendZoneUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"friend",
+								"getAllFriendZoneUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete friend",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "user0",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "qwerty",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n                    \"id\": 5,\r\n                    \"login\": \"user3\",\r\n                    \"email\": \"@mail3\"\r\n                }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/friend/deleteFriend",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"friend",
+								"deleteFriend"
 							]
 						}
 					},
